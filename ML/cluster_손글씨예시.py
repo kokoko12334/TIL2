@@ -105,7 +105,7 @@ plt.show()
 #H-clustering(hierarchical Agglomerative cluster)
 #그룹을 나눈후에 cluster 결정  앞에서는 cluster수를 정하고 나누었음. 
 #자르는 기준은 앞에서 실루엣 평가모형을 기준으로 하면 될듯.
-#모든 자료의 거리를 구하고 제일 가까운 거리를 묶고 그 묶은 클러스터의 평균을 구하고
+#모든 자료의 거리를 구하고 제일 가까운 거리를 묶고 그 묶은 클러스터의 평균을 구하고 중심이 이동함.
 #그 평균에서 다시(자료의 개수를 줄어듬) 모든 자료의 거리구하고 가까운거 묶고.. 반복
 # H-Clustering 연습
 from sklearn.datasets import make_blobs
