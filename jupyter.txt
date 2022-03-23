@@ -1,0 +1,55 @@
+#서버 열기
+
+https://multicampus-iitp.signin.aws.amazon.com/console
+
+ID : s-D-lab03 
+password : gnjf!!7518
+
+#putty
+ssh->autho에서 다운받은 암호화키 파일 넣고
+hot name에 서버이름 54.95.119.151 넣기
+
+#파이썬 실행
+conda info --envs
+
+pip install --upgrade nbconvert
+pip install --upgrade jupyter
+conda install pip conda install
+pip install tensorflow
+
+conda activate python3
+
+
+#파일 만들기
+
+cat > jup
+nohup jupyter-notebook --ip=0.0.0.0 --no-browser --port=8903 & 붙혀넣기
+enter하고 ctrl+d 
+
+#파일 조회
+pwd
+ls -1
+#파일 실행
+chmod 777 jup
+./jup
+enter 두번
+
+#jupyter 주소
+http://54.95.119.151:8903/
+
+password : multi1234!
+
+
+
+#file zila
+
+file -> site manager -> connect
+
+
+
+
+
+
+
+
+
