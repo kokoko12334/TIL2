@@ -15,7 +15,7 @@ maria.put_bag('key')
 
 print(james.bag)
 print(maria.bag)
-id(james.bag) ;id(maria.bag)  #같은 것을 공유함
+print(id(james.bag), id(maria.bag))  #같은 것을 공유함
 
 #보면 class 속성은 모든 인스턴스가 공유하고 인스턴스 속성은 뒤에서 했던것처럼 def __init__로 정의해서 독립점임
 #그리고 이때 클래스 속성은 self보다는 클래스명을 입력해서 클래스 속성을 부여한다는 의미를 확실시하는게 좋음
@@ -45,7 +45,7 @@ maria.put_bag('key')
 
 print(james.bag)
 print(maria.bag)
-id(james.bag) ;id(maria.bag)  #id가 다름
+print(id(james.bag), id(maria.bag))   #id가 다름
 
 #보면 서로 다른 속성을 부여했음. 속성을 공유하는 것이 클래스 속성, 독립된 속성을 공유하면 인스턴스 속성
 

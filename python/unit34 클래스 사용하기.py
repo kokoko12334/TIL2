@@ -27,7 +27,7 @@ c=s.mul(1,2)            #####그냥 def 정의해서 하는 거랑 같음.
 #다른 예제
 class Calc:
 
-  def __init__(self, first, second):
+  def __init__(self, first=None, second=None):
     self.first = first
     self.second = second
   def add(self):
@@ -38,10 +38,9 @@ class Calc:
     return self.first*self.second
   def div(self):
     return self.first/self.second
-
-
-
-
+    
+ko = Calc(3,3)
+ko.add()
 
 #빈클래스
 class Person:
@@ -96,6 +95,9 @@ class Person:
 ko=Person('min',20,'jeju')
 ko.greeting()
 #속성을 호출할떄는 . 메소드 방식으로함
+
+Person.__init__ #클래스의 속성 조회
+dir(Person)  #클래스의 메소드 조회
 ko.age
 ko.name
 ko.address
@@ -164,7 +166,7 @@ class Person:
         self.name = name
         self.age= age
         self.address = address
-        self.__wallet = wallet
+        self.__wallet = wallet  ##__를 붙힘.
 
 maria=Person('마리아',20, '서울시', 10000)
 maria.__wallet-=300 #클래스 바깥에서 접근하면 오류나옴
@@ -181,8 +183,8 @@ class Person:
         self.__wallet -= amount
         
         print('이제 {0}원 남음'.format(self.__wallet))
-
-
+ 
+maria = Person('마리아', 20, '서울시 서초구 반포동', 10000)
 maria.pay(3000)
 
 

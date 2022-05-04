@@ -42,7 +42,6 @@ trace_world = trace(world)    # 데코레이터에 호출할 함수를 넣음
 trace_world()                 # 반환된 함수를 호출
 
 
-
 ### wrapper()를 안쓰는 경우
 def trace2(func):
     print(func.__name__, '함수 시작')
@@ -69,10 +68,12 @@ def trace(func):
     return wrapper        #return 값을 받기 위해서 wrapper 함수를 쓴다.
 
 
-
-@trace                      #위에서  a = trace(hello)   ,  a()  없이 진행하는 과정
+@trace                      #위에서  a = trace(hello)   ,  a()  없이 진행하는 과정()
 def hello():                  #주의 할 것이 위에서 trace 함수도 같이 묶어서 해야함.
     print('hello')
+
+hello()
+
 
 @trace
 def world():
@@ -233,7 +234,7 @@ class IsMultiple:
         return wrapper
 
 
-@IsMultiple(5)
+@IsMultiple(8)
 def add(a, b):
     return a+b
 

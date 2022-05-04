@@ -4,7 +4,9 @@ Created on Tue Dec 28 21:31:50 2021
 
 @author: User
 """
+
 #지역변수 전역변수
+
 x=10
 def ko():
     global x
@@ -77,3 +79,37 @@ c=calc()
 c(1)
 c(2)
 c(3)
+
+
+
+###################
+def add(a, b):
+    return a + b
+ 
+def substract(a, b):
+    return a - b
+ 
+def multiply(a, b):
+    return a * b
+ 
+def divide(a, b):
+    return a / b
+ 
+func_lst = [add, substract, multiply, divide]
+a = int(input("a의 값을 입력하세요: "))
+b = int(input("b의 값을 입력하세요: "))
+for func in func_lst:
+    print(func.__name__, ":", func(a, b))
+
+
+
+
+
+
+
+
+
+
+
+
+    

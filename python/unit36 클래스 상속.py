@@ -41,7 +41,7 @@ class SafeCalc(Calc):
     else:
       return self.first/self.second  
 
-c = SafeCalc(4,1)
+c = SafeCalc(4,0)
 c.div()        #이때 div()에서 0으로 나누면 나오는 오류를 반환값으로 처리(Nontype)
 
 class Safecalc(Calc):
