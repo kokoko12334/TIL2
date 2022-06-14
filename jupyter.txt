@@ -3,7 +3,7 @@ lab09
 https://multicampus-iitp.signin.aws.amazon.com/console
 
 ID : s-D-lab09
-password : gnjf7518
+password : gnjf!!7518
 
 #putty
 ssh->autho에서 다운받은 암호화키 파일 넣고
@@ -129,7 +129,10 @@ http://0.0.0.0:8080/
 
 
 
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py 
+python3 get-pip.py --force-reinstall
 
+출처: https://40holic.tistory.com/71 [달콤한 방랑]
 
 
 
