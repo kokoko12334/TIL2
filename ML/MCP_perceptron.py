@@ -63,11 +63,7 @@ plt.plot(range(1, len(ppn.errors_)+1), ppn.errors_, marker = 'o')
 plt.xlabel('Epochs')
 plt.ylabel('errors_count') 
 plt.show()
-
-
-
-
-
+print(ppn.w_)
 
 
 
