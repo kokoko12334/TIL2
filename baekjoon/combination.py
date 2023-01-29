@@ -35,7 +35,3 @@ combination(lst, 2)
 
 cases(5, 2)
 
-
-9c3
-
-cases(9, 3)
