@@ -1,6 +1,6 @@
-x = 40
+x = 10
 y = 40
-n = 30
+n = 5
 
 def cal(x,n):
     return [x+n, 2*x, 3*x]
@@ -30,7 +30,10 @@ if result:
 answer
 
 
-float('inf')
+x = 10
+y = 40
+n = 5
+
 
 def solution(x, y, n):
     dp = [float('inf')]*(y+1)
@@ -49,3 +52,7 @@ def solution(x, y, n):
         return -1
     else:
         return dp[y]
+
+
+
+solution(x,y,n)
