@@ -1,4 +1,4 @@
-
+from itertools import combinations
 lst = [int(input()) for _ in range(9)]
 
 
@@ -24,3 +24,27 @@ for i in range(len(lst)):
             break
     if found:
         break
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

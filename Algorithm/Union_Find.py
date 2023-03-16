@@ -107,32 +107,4 @@ if cycle:
     print("싸이클 존재")
 
 
-d  = {1:1, 2:2}
-
-
-
-list(d.keys())[0]
-a = {1,2,3}
-
-b = {2,3}
-
-int('123'[0])
-(a-b)[0]
-
-
-
-
-
-total =0
-
-total += 0
-
-
-
-91011
-
-
-result = []
-
-result.append(None)
 

@@ -1,20 +1,20 @@
 
 
-lst = [1,2,3]
-###반복 과정 눈으로 확인
-result = []
-for i in range(len(lst)): 
-    lst2 = lst[:i]+lst[i+1:]
-    a = lst[i]
-    for j in range(len(lst2)):
-        lst3 = lst2[:j]+lst2[j+1:]
-        b = lst2[j]
-        for k in range(len(lst3)):
-            c = lst3[k]
-            result2 = [a,b,c]
+# lst = [1,2,3]
+# ###반복 과정 눈으로 확인
+# result = []
+# for i in range(len(lst)): 
+#     lst2 = lst[:i]+lst[i+1:]
+#     a = lst[i]
+#     for j in range(len(lst2)):
+#         lst3 = lst2[:j]+lst2[j+1:]
+#         b = lst2[j]
+#         for k in range(len(lst3)):
+#             c = lst3[k]
+#             result2 = [a,b,c]
             
-            result.append(result2)
-print(result)
+#             result.append(result2)
+# print(result)
 lst = [1,2,3,4,5]
 #위 과정을 재귀함수로 표현
 def per(lst, n):

@@ -1,48 +1,47 @@
 from collections import deque
 import sys
-n,m = [int(i) for i in sys.stdin.readline().split()]
+sys.setrecursionlimit(10**6)
+
+n, m = [int(i) for i in input().split()]
+lst = []
+for _ in range(n):
+  a = [int(i) for i in input()]
+  lst.append(a)
 
 
-table = [list(sys.stdin.readline()) for _ in range(n)]
-graph = {}
-for i in range(n):
-    for j in range(m):
-        if table[i][j] == "1":
-            graph[str(i)+str(j)] = []
+###x가 위아래 y가 좌우
+dy = [0,1,0,-1]
+dx = [-1,0,1,0]
 
-for i in range(n):
-    for j in range(m):
-        if table[i][j] == '1':
-            if i-1>=0 and table[i-1][j] == "1":    #upper
-                graph[str(i)+str(j)].append(str(i-1)+str(j))
-            if j-1>=0 and table[i][j-1] == "1":  #왼쪽
-                graph[str(i)+str(j)].append(str(i)+str(j-1))
-            if i+1<=n-1 and table[i+1][j] == "1":  #밑
-                graph[str(i)+str(j)].append(str(i+1)+str(j))    
-            if j+1<=m-1 and table[i][j+1] == "1":  #오른쪽
-                graph[str(i)+str(j)].append(str(i)+str(j+1))
-
-
-
-goal = str(n-1)+str(m-1)
 seen = {}
 que = deque()
-que.append('00')
-seen['00'] = True
-answer = 1
+x = 0
+y = 0
+s = str(x)+"."+str(y)
+que.append(s)
+seen[s] = True
+def bfs():
+    if que:
+        s = que.popleft().split(".")
+        x = int(s[0])
+        y = int(s[1])
+        for i in range(4):
+            new_x = x+dx[i]
+            new_y = y+dy[i]
+            if new_x <0 or new_y >= m or new_x >= n or new_y < 0:
+              continue
+            if lst[new_x][new_y] == 1 and str(new_x)+str(new_y) not in seen:
+              lst[new_x][new_y] = lst[x][y]+1
+              s2 = str(new_x)+"."+ str(new_y)
+              que.append(s2)
+              seen[s2] = True
+        bfs()        
 
-while que:
-    lst = []
-    for _ in range(len(que)):
-        out = que.popleft()
 
-        for i in graph[out]:
-            if i not in seen:
-                lst.append(i)
 
-                seen[i] = True
-    que = deque(lst)
-    answer += 1
-    if goal in que:
-        break    
-print(answer)
+bfs()
+
+print(lst[n-1][m-1])
+
+
+
