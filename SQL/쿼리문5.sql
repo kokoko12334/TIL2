@@ -34,7 +34,7 @@ DELIMITER ;   -- ;는 띄어 쓰어야함.
    
 CALL ifproc2();
 
-
+use market_db;
 DELIMITER $$
 CREATE PROCEDURE ifproc3()
 BEGIN

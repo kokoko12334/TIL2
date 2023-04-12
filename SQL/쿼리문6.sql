@@ -11,7 +11,7 @@ CREATE TABLE `naver_db`.`buy` (
   `price` INT UNSIGNED NOT NULL,
   `amount` SMALLINT UNSIGNED NOT NULL,
 	PRIMARY KEY (`num`), 
-	FOREIGN KEY(mem_id) REFERENCES member(mem_id)      -- 외래키 참조하는 방법 foreign key(만들 테이블 references 테이블명(참조할 열 이름) => buy(다=many) member(일=one) => 일대다 관계로 연결
+	FOREIGN KEY(mem_id) REFERENCES member(mem_id)      -- 외래키 참조하는 방법 foreign key(만들 열이름) references 테이블명(참조할 열 이름) => buy(다=many) member(일=one) => 일대다 관계로 연결
 
 
 );
