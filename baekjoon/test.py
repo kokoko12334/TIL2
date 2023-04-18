@@ -1,60 +1,30 @@
-from collections import deque
-import copy
-import time
-start = time.time()
-def bfs():
-    queue = deque()
-    tmp_graph = copy.deepcopy(graph)
-    for i in range(n):
-        for j in range(m):
-            if tmp_graph[i][j] == 2:
-                queue.append((i, j))
-
-    while queue:
-        x, y = queue.popleft()
-
-        for i in range(4):
-            nx = x + dx[i]
-            ny = y + dy[i]
-
-            if nx < 0 or nx >= n or ny < 0 or ny >= m:
-                continue
-            if tmp_graph[nx][ny] == 0:
-                tmp_graph[nx][ny] = 2
-                queue.append((nx, ny))
-
-    global answer
-    cnt = 0
-
-    for i in range(n):
-        cnt += tmp_graph[i].count(0)
-
-    answer = max(answer, cnt)
-
-
-def makeWall(cnt):
-    if cnt == 3:
-        bfs()
-        return
-
-    for i in range(n):
-        for j in range(m):
-            if graph[i][j] == 0:
-                graph[i][j] = 1
-                makeWall(cnt+1)
-                graph[i][j] = 0
-
+import sys
+sys.setrecursionlimit(10 ** 6)
 
 n, m = map(int, input().split())
-graph = []
-dx = [0, 0, 1, -1]
-dy = [1, -1, 0, 0]
+graph = [list(map(int, input().split())) for _ in range(n)]
+visited = [[-1] * m for _ in range(n)]
+dx, dy = (-1, 1, 0, 0), (0, 0, -1, 1)
 
-for i in range(n):
-    graph.append(list(map(int, input().split())))
 
-answer = 0
-makeWall(0)
-print(answer)
-end = time.time()
-print(f"{end - start:.5f} sec")
+def dfs(x, y):
+    if x == n - 1 and y == m - 1:
+        return 1
+
+    if visited[x][y] != -1:
+        return visited[x][y]
+
+    visited[x][y] = 0
+
+    for i in range(4):
+        nx, ny = x + dx[i], y + dy[i]
+
+        if 0 <= nx < n and 0 <= ny < m:
+            if graph[nx][ny] < graph[x][y]:
+                visited[x][y] += dfs(nx, ny)
+
+    return visited[x][y]
+
+#위, 아래, 왼쪽, 오른쪽
+print(dfs(0, 0))
+print(visited)

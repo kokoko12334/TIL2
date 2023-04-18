@@ -1,9 +1,5 @@
 import sys
 
-
-# 개선 답안
-
-# 입력값 처리
 S = sys.stdin.readline().rstrip()
 explosion_string = sys.stdin.readline().rstrip()
 
