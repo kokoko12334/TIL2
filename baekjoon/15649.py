@@ -1,41 +1,21 @@
-n,m = list(map(int,input().split()))
- 
-s = []
- 
-def dfs():
-    if len(s)==m:
-        print(' '.join(map(str,s)))
-        return
-    
-    for i in range(1,n+1):
-        if i not in s:
+
+
+n, m = [int(i) for i in input().split()]
+
+
+stack = [[i,1,[i]] for i in range(n,0,-1)]
+sett = set(range(n,0,-1))
+
+while stack:
+    out = stack.pop()
+    v, l, arr = out[0], out[1], out[2]
+    if l == m:
+        print(*arr)
+    else:
+        a = sorted(list(sett - set(arr)), reverse= True)
+        for i in a:
             
-            s.append(i)
-            
-            dfs()
-            
-            s.pop()
-            
- 
-dfs()
-
-
-
-
-# dp = {0:0, 1:1}
-# def p(n):
-#     if n in dp:
-#         return dp[n]
-#     else:
-#         dp[n] = p(n-1)+p(n-2)    
-#         return dp[n]    
-
-
-# p(100)
-
-
-
-
+            stack.append([i,l+1,arr+[i]])
 
 
 
