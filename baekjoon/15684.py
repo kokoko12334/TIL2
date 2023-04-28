@@ -104,16 +104,12 @@ else:
     for num in [1,2,3]:
         if flag2:
             cases = list(combinations(c,num))
-            cases = 
             for i in cases:
                 flag = True
                 if put(i,num):
                     lst2 = [l[:] for l in lst]
                     for j in range(1,n+1):
-                        for k in range(1, h+1):
-                        
-                            lst2[k][j] = lst2[k-1][j] + ladder[k][lst2[k-1][j]]
-    
+                        dfs(1,j)
                         if lst2[h][j] != j:
                             flag = False
                             break
@@ -123,7 +119,6 @@ else:
                     answer = num
                     flag2 = False
                     break
-
 
 print(answer)
 
