@@ -1,134 +1,91 @@
-from itertools import combinations
 import sys
-sys.setrecursionlimit(10**6)
+from collections import deque
 
-# n = 가로 h 세로
-n,m,h = [int(i) for i in sys.stdin.readline().split()]
-ladder = [[0]*(n+1) for _ in range(h+1)]
+#sys.setrecursionlimit(10 ** 8)  # pypy 제출시 삭제!
+input = lambda: sys.stdin.readline().rstrip()
+in_range = lambda y, x: 0 <= y < r and 0 <= x < c
 
-lst = [list(range(n+1))]
-for _ in range(h):
-    lst.append([0]*(n+1))
-for _ in range(m):
-    y,x = [int(i) for i in sys.stdin.readline().split()]
-    ladder[y][x] = 1
-    ladder[y][x+1] = -1
+dy = [1, 0, -1, 0]
+dx = [0, 1, 0, -1]
 
 
-def dfs(y,x):
-    if y == h + 1:
-        return
-    lst2[y][x] = lst2[y-1][x] + ladder[y][lst2[y-1][x]]
-    
-    dfs(y+1,x)
+def find(v):
+    if v == root[v[0]][v[1]]:
+        return v
+    root[v[0]][v[1]] = find(root[v[0]][v[1]])
+    return root[v[0]][v[1]]
 
-def put(lst,n):
-    global flag
-    if n == 1:
-        y,x = lst[0][0], lst[0][1]
-        ladder[y][x] += 1
-        ladder[y][x+1] -= 1
-        return 1
-    elif n == 2:
-        y1,x1,y2,x2 = lst[0][0], lst[0][1], lst[1][0], lst[1][1]
-        if y1 == y2 and abs(x1-x2) == 1:
-            flag = False
-            return 0
-        else:
-            ladder[y1][x1] += 1
-            ladder[y1][x1+1] -= 1
-            ladder[y2][x2] += 1
-            ladder[y2][x2+1] -= 1 
-            return 1
+
+def union(v1, v2):
+    r1 = find(v1)
+    r2 = find(v2)
+
+    if rank[r1[0]][r1[1]] > rank[r2[0]][r2[1]]:
+        root[r2[0]][r2[1]] = r1
+    elif rank[r1[0]][r1[1]] < rank[r2[0]][r2[1]]:
+        root[r1[0]][r1[1]] = r2
     else:
-        y1,x1,y2,x2,y3,x3 = lst[0][0], lst[0][1], lst[1][0], lst[1][1],lst[2][0], lst[2][1]
-        if (y1 == y2 and abs(x1-x2) == 1) or (y1 == y3 and abs(x1-x3) == 1) or (y2 == y3 and abs(x2-x3) == 1):
-            flag = False
-            return 0 
-        else:
-            ladder[y1][x1] += 1
-            ladder[y1][x1+1] -= 1
-            ladder[y2][x2] += 1
-            ladder[y2][x2+1] -= 1
-            ladder[y3][x3] += 1
-            ladder[y3][x3 +1] -= 1
-            return 1
+        root[r2[0]][r2[1]] = r1
+        rank[r1[0]][r1[1]] += 1
 
-def disput(lst, n):
- 
-    if n == 1:
-        y,x = lst[0][0], lst[0][1]
-        ladder[y][x] -= 1
-        ladder[y][x+1] += 1
-    elif n == 2:
-        y1, x1, y2, x2 = lst[0][0], lst[0][1], lst[1][0], lst[1][1]
-        
-        ladder[y1][x1] -= 1
-        ladder[y1][x1+1] += 1
-        ladder[y2][x2] -= 1
-        ladder[y2][x2+1] += 1
-    else:
-        y1, x1, y2, x2, y3, x3 = lst[0][0], lst[0][1], lst[1][0], lst[1][1], lst[2][0], lst[2][1]
-        
-        ladder[y1][x1] -= 1
-        ladder[y1][x1+1] += 1
-        ladder[y2][x2] -= 1
-        ladder[y2][x2+1] += 1
-        ladder[y3][x3] -= 1
-        ladder[y3][x3 + 1] += 1
 
-c = []
-for i in range(1,h+1):
-    for j in range(1,n+1):
-        if j == n:
-            continue
-        else:
-            if ladder[i][j] == 0 and ladder[i][j+1] == 0:
-                c.append([i,j])
+r, c = map(int, input().split())
 
-flag = True
-lst2 = [l[:] for l in lst]
+board = [list(input()) for _ in range(r)]
+root = [[(i, j) for j in range(c)] for i in range(r)]
+rank = [[0 for j in range(c)] for i in range(r)]  # union 최적화
+visit = [[0 for _ in range(c)] for _ in range(r)]
+swan = []  # swan[0] = (y1,x1), swan[1] = (y2,x2)
 
-for i in range(1,n+1):
-    dfs(1,i)
-    if lst2[h][i] != i:
-        flag = False
-        break
+for i in range(r):
+    for j in range(c):
+        if board[i][j] == "L":
+            swan.append((i, j))
+            board[i][j] = "."
+            if len(swan) == 2:
+                break
 
-if flag:
-    answer = 0
+melt = deque()
+for i in range(r):
+    for j in range(c):
+        if not visit[i][j] and board[i][j] == ".":
+            q = deque()
+            q.append((i, j))
+            visit[i][j] = 1
+            while q:
+                y, x = q.popleft()
+                root[y][x] = (i, j)
+                for k in range(4):
+                    ny, nx = y + dy[k], x + dx[k]
+                    if in_range(ny, nx) and not visit[ny][nx] and board[ny][nx] == ".":
+                        visit[ny][nx] = 1
+                        q.append((ny, nx))
+                    elif (
+                        in_range(ny, nx) and not visit[ny][nx] and board[ny][nx] == "X"
+                    ):
+                        visit[ny][nx] = 1
+                        melt.append((ny, nx))
 
-else:
-    answer = -1
-    flag2 = True
-    for num in [1,2,3]:
-        if flag2:
-            cases = list(combinations(c,num))
-            cases = 
-            for i in cases:
-                flag = True
-                if put(i,num):
-                    lst2 = [l[:] for l in lst]
-                    for j in range(1,n+1):
-                        for k in range(1, h+1):
-                        
-                            lst2[k][j] = lst2[k-1][j] + ladder[k][lst2[k-1][j]]
+day = 0
+while find(swan[0]) != find(swan[1]):
+    tmp = deque()
+    print(len(melt))
+    while melt:
+        y, x = melt.popleft()
+        board[y][x] = "."
+        merge_point = []
+        for k in range(4):
+            ny, nx = y + dy[k], x + dx[k]
+            if in_range(ny, nx) and not visit[ny][nx] and board[ny][nx] == "X":
+                visit[ny][nx] = 1
+                tmp.append((ny, nx))
+            elif in_range(ny, nx) and board[ny][nx] == ".":
+                merge_point.append((ny, nx))
+
+        for rt in merge_point:
+            if find(rt) != find((y, x)):
+                union(rt, (y, x))
     
-                        if lst2[h][j] != j:
-                            flag = False
-                            break
-                    disput(i,num)
-                if flag:
-                    
-                    answer = num
-                    flag2 = False
-                    break
-
-
-print(answer)
-
-
-
-
-
-
+    melt = tmp
+    day += 1
+print(day)
