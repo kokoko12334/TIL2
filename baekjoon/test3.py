@@ -1,96 +1,32 @@
-
-from collections import deque
 import sys
-input = sys.stdin.readline
-row, col = [int(i) for i in input().split()]
+from collections import deque
 
-lst = [list(input()) for _ in range(row)]
+n, m = map(int, sys.stdin.readline().split())
+a = []
 
+for i in range(m):
+    a.append(sys.stdin.readline())
 
-def find(parent, idx):
-    y, x = idx[0], idx[1]
-    if parent[y][x] != [y, x]:
-        parent[y][x] = find(parent, parent[y][x])
-    return parent[y][x]
-
-
-def union(idx1, idx2, parent, rank):
-    xroot = find(parent, idx1)
-    yroot = find(parent, idx2)
-
-    if xroot == yroot:
-        return
-    if rank[xroot[0]][xroot[1]] < rank[yroot[0]][yroot[1]]:
-        parent[xroot[0]][xroot[1]] = yroot
-    elif rank[xroot[0]][xroot[1]] > rank[yroot[0]][yroot[1]]:
-        parent[yroot[0]][yroot[1]] = xroot
-    else:
-        parent[xroot[0]][xroot[1]] = yroot
-        rank[yroot[0]][yroot[1]] += 1
-
-
-parent = [[[i, j]for j in range(col)]for i in range(row)]
-rank = [[0]*col for _ in range(row)]
-swans = []
+dist = [[-1]*n for _ in range(m)]
+dist[0][0] = 0
 q = deque()
-seen = [[0]*col for _ in range(row)]
-for i in range(row):
-    for j in range(col):
-        if lst[i][j] == "L":
-            swans.append([i, j])
-            lst[i][j] = "."
-            q.append([i,j])
-            seen[i][j] = 1
-        elif lst[i][j] == ".":
-            q.append([i,j])
-            seen[i][j] = 1
-dx = [1, 0, -1, 0]
-dy = [0, 1, 0, -1]
-answer = 0
-next = []
+dx = [1, -1, 0, 0]
+dy = [0, 0, 1, -1]
+q.append([0, 0])
+
 while q:
-    out = q.popleft()
-    y, x= out[0], out[1]
+    x, y = q.popleft()
     for i in range(4):
-        ny = y + dy[i]
-        nx = x + dx[i]
-        if nx < 0 or nx >= col or ny < 0 or ny >= row:
-            continue
-        if lst[ny][nx] == ".":
-            if find(parent, [ny, nx]) != find(parent, [y, x]):
-                union([ny, nx], [y, x], parent, rank)
-                q.append([ny, nx])
-        
-        elif lst[ny][nx] == "X" and not seen[ny][nx]:
-            union([ny, nx], [y, x], parent, rank)
-            next.append([ny, nx])
-            seen[ny][nx] = 1
-            
+        nx, ny = x+dx[i], y+dy[i]
+        if nx >= 0 and nx < m and ny >= 0 and ny < n:
+            if dist[nx][ny] == -1:
+                if a[nx][ny] == '0':
+                    q.appendleft([nx, ny])
+                    dist[nx][ny] = dist[x][y]
+                elif a[nx][ny] == '1':
+                    q.append([nx, ny])
+                    dist[nx][ny] = dist[x][y]+1
 
-answer = 0
-while find(parent, swans[0]) != find(parent, swans[1]):
-    
-    answer += 1
-    q = deque(next)
-    next = []
-    while q:
-        out = q.popleft()
-        
-        y, x = out[0], out[1]
-        lst[y][x] = "."
-        for i in range(4):
-            ny = y + dy[i]
-            nx = x + dx[i]
-            if nx < 0 or nx >= col or ny < 0 or ny >= row:
-                continue
-            if lst[ny][nx] == ".":
-                if find(parent, [ny, nx]) != find(parent, [y, x]):
-                    union([ny, nx], [y, x], parent, rank)
-                    q.append([ny, nx])
-            
-            elif lst[ny][nx] == "X" and not seen[ny][nx]:
-                seen[ny][nx] = 1
-                union([ny, nx], [y, x], parent, rank)
-                next.append([ny, nx])
-
-print(answer)
+print(dist[m-1][n-1])
+for i in dist:
+    print(i)
