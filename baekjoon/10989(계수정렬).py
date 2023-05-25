@@ -1,24 +1,13 @@
-# https://seongonion.tistory.com/130
 import sys
+input = sys.stdin.readline
+n = int(input())
+numbers = [0]*(10001)
 
-arr = [int(sys.stdin.readline()) for _ in range(int(input()))]
-count = [0] * (max(arr) + 1)
+for _ in range(n):
+    num = int(input())
+    numbers[num] += 1
 
-for num in arr:
-    count[num] += 1
-
-# print(count)
-
-for i in range(1, len(count)):
-    count[i] += count[i-1]
-
-# print(count)
-
-result = [0] * (len(arr))
-
-for num in arr:
-    idx = count[num]
-    result[idx - 1] = num
-    count[num] -= 1
-
-print(*result, sep='\n')
+for i in range(1,10001):
+    iterr = numbers[i]
+    for j in range(iterr):
+        print(i)

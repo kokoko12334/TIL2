@@ -1,37 +1,32 @@
 import sys
-from collections import deque
+from heapq import *
 input = sys.stdin.readline
-t = int(input())
-dy = [-2,-2,-1,-1,1,1,2,2]
-dx = [-1,1,-2,2,-2,2,-1,1]
-for _ in range(t):
-    n = int(input())
-    dp = [[0]*n for _ in range(n)]
-    visited = [[0]*n for _ in range(n)]
-    sy,sx = [int(i) for i in input().split()]
-    ey,ex = [int(i) for i in input().split()]
-    q = deque([[sy,sx]])
-    visited[sy][sx] = 1
-    while q:
-        y,x = q.popleft()
-        for i in range(8):
-            ny = y + dy[i]
-            nx = x + dx[i]
-            if nx <0 or nx >= n or ny < 0 or ny>= n:
-                continue
-            if not visited[ny][nx]:
-                dp[ny][nx] = dp[y][x] + 1
-                visited[ny][nx] = 1
-                q.append([ny,nx])
-    print(dp[ey][ex])
+v,e = [int(i) for i in input().split()]
+s = int(input())
+g = {i:[] for i in range(v+1)}
+for _ in range(e):
+    d,e,c = [int(i) for i in input().split()]
+    g[d].append([e,c])
     
 
+hq = []
+heappush(hq,(0,s))
+dp = [float("inf")]*(v+1)
+dp[s] = 0
 
+while hq:
+    d, x = heappop(hq)
+    if dp[x] <d:
+        continue
+    for i in g[x]:
+        node, dd = i
+        cost = dd + d
+        if cost < dp[node]:
+            dp[node] = cost
+            heappush(hq, (cost,node))
 
-
-
-
-
-
-
-
+for i in dp[1:]:
+    if i == float("inf"):
+        print("INF")
+    else:
+        print(i)
