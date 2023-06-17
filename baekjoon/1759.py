@@ -1,47 +1,22 @@
+from itertools import combinations
 import sys
-sys.setrecursionlimit(1000) 
-# l,c = [int(i) for i in sys.stdin.readline().split()]
+input = sys.stdin.readline
 
-# al = [i for i in sys.stdin.readline().split()]
+l,c = [int(i) for i in input().split()]
+al = input().split()
+answer = []
+for i in combinations(al, l):
+    vol = 0
+    con = 0
+    for j in i:
+        if j in {"a","e","i","o","u"}:
+            vol += 1
+        else:
+            con += 1
+    if vol <= 0 or con <= 1:
+        continue
+    
+    answer.append("".join(sorted(i)))
 
-# al = ['a','b','c','d']
-# pwd = []
-
-
-
-
-# def all_search(lst):
-#     lst2 = []
-#     for i in range(len(lst)):
-#         lst2.append(lst[i])
-#         for j in all_search(lst[i:]):
-#             lst2.append(lst[j])
-#     return lst2        
-
-# all_search(al)
-
-
-# 입력값(매개변수), 결과값(리턴값), 그리고 리턴 후 돌아갈 위치
-
-def factorial(n):
-    if n ==1:
-        return 1
-    return n*factorial(n-1)    
-
-
-def fac2(n, total = 1):
-    if n ==1:
-        return total
-    return fac2(n-1, n*total)    
-
-# print(factorial(1001))
-# print(fac2(1000))
-
-#return address arguments local variables
-def trisum(n, csum):
-    while True:                     # Change recursion to a while loop
-        if n == 0:
-            return csum
-        n, csum = n - 1, csum + n   # Update parameters instead of tail recursion
-
-print(trisum(1000,0))
+for i in sorted(answer):
+    print(i)
