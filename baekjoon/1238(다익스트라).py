@@ -9,6 +9,7 @@ for _ in range(m):
     s,e,t = [int(i) for i in input().split()]
     g[s-1][e-1] = t
 
+
 answer = [0]*n
 for i in range(n):
     
