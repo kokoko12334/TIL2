@@ -25,3 +25,4 @@ def union(x, y, parent, rank):
 
 
 #길이가 긴것이 부모모드가 된다
+        
