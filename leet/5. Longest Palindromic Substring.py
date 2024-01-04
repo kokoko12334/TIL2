@@ -1,50 +1,38 @@
 class Solution:
+
+
     def longestPalindrome(self, s: str) -> str:
         
-
-
-
-        start = 0
         n = len(s)
-        max_value = 1
         answer = ""
-        while start < n:
+        max_v = 0
+        #odd
+        for i in range(n):
+            l = i
+            r = i
+            while l >= 0 and r < n and s[l] == s[r]:
+                res = r - l + 1
+                if res >= max_v:
+                    max_v = res
+                    answer = s[l:r+1]  
+                l -= 1
+                r += 1
 
-            result = 1
-            l = start-1
-            r = start+1
+        
+        #even
 
-            while True:
+        for i in range(n):
+            l = i
+            r = i+1
+            while l >= 0 and r < n and s[l] == s[r]:
+                res = r - l + 1
+                if res >= max_v:
+                    max_v = res
+                    answer = s[l:r+1]  
+                l -= 1
+                r += 1
 
-                if l >= 0:
-                    s_l = s[l]
-                else:
-                    s_l = ""
 
-                if r < n:
-                    s_r  = s[r]
-                else:
-                    s_r = ""
-
-                if s_l == s_r:
-                    result += 2
-                    l = l-1
-                    r = r+1
-
-                else:
-                    
-                    if max_value <= result:
-                        max_value = result
-                        answer = s[l+1:r]
-
-                    result -= 1
-                    share = (result//2)
-                    
-                    if share:
-                        start = start + share
-                    else:
-                        start += 1
-                    break
         return answer
     
 
@@ -56,4 +44,4 @@ class Solution:
 
 a = Solution()
 
-a.longestPalindrome("cbbd")
+print(a.longestPalindrome("cbbd"))
