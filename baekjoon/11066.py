@@ -3,20 +3,42 @@ t = int(input())
 
 
 def dp(n,arr):
-    answer = 0
-    while len(arr) > 1:
-        arr.sort()
-        result = arr[0] + arr[1]
-        answer += result
-        arr = arr[2:]
-        arr.append(result)
+    
+    dp = [[0]*n for _ in range(n)]
 
-    return answer
+    for j in range(n):
+        for i in range(n):               
+            lst = [dp[k][k+1] for k in range(i,j)]
+            if lst:
+                min_value = min(lst)
+            else:
+                min_value = 0
+            dp[i][j] = sum(arr[i:j+1]) + min_value
+    
+    return dp[0][n-1]
 
+
+def rec(i,j):
+    
+    if dp[i][j]:
+        return dp[i][j]
+
+    lst = [rec(k,k+1) for k in range(i,j)]
+    return sum(arr[i:j+1]) + min(lst)
+    
 
 
 for _ in range(t):
+
     n = int(input())
     arr = [int(i) for i in input().split()]
-    print(dp(n,arr))
+
+    dp = [[0]*n for _ in range(n)]
+    idx = 0
+    for i in range(n):
+        dp[idx+i][idx+i] = arr[idx+i]
+        if idx+i+1 < n:
+            dp[idx+i][idx+i+1] = sum(arr[idx+i:idx+i+2])
+
+    print(rec(0,n-1))
 
