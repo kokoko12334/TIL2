@@ -1,9 +1,4 @@
 
-
-
-
-
-
 from bisect import bisect_left
 class Solution:
     def increasingTriplet(self, nums) -> bool:
