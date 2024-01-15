@@ -13,4 +13,3 @@ else :
         if temp >= 10 and temp <= 26 :
             dp[i] += dp[i-2]
     print(dp[l] % 1000000)
-
