@@ -1,0 +1,19 @@
+
+
+<dialect>://<username>:<password>@<host>:<port>/<database>
+
+The string form of the URL is
+    ``dialect[+driver]://user:password@host/dbname[?key=value..]``, where
+    ``dialect`` is a database name such as ``mysql``, ``oracle``,
+    ``postgresql``, etc., and ``driver`` the name of a DBAPI, such as
+    ``psycopg2``, ``pyodbc``, ``cx_oracle``, etc.  Alternatively,
+    the URL can be an instance of :class:`~sqlalchemy.engine.url.URL`.
+
+postgresql+psycopg2://scott:tiger@localhost/test
+
+
+
+mysql+mysqlclient://root:7292@localhost/test1
+
+
+
