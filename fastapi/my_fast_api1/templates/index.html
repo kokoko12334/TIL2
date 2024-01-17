@@ -1,0 +1,177 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question List</title>
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+
+    <h1>{{message}}</h1>
+    
+    <input type="number" id="questionIdInput" placeholder="Enter Question ID">
+    <button id="fetchDetailBtn">Fetch Question Detail</button>
+    
+    <button id="fetchDataBtn">Fetch Question List</button>
+    
+    <table id="questionTable" border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>subject</th>
+                <th>content</th>
+                <th>create_date</th>
+                <th>View</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+
+        <!-- 모달 -->
+    <div id="questionModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="modalQuestionId"></p>
+            <p id="modalSubject"></p>
+            <p id="modalContent"></p>
+            <p id="modalCreateDate"></p>
+            <form id="addQuestionForm">
+                <label for="questionContent">Add a Question:</label>
+                <textarea id="questionContent" name="content" rows="4" cols="50"></textarea>
+                <button type="submit">Submit</button>
+            </form>
+            
+        </div>
+    </div>
+
+
+
+    <script>
+        $(document).ready(function() {
+            $("#fetchDataBtn").click(function() {
+                // API에서 데이터 가져오기
+                $.get("/api/question/list", function(data) {
+                    // 데이터를 테이블에 추가
+                    var tbody = $("#questionTable tbody");
+                    tbody.empty();  // 테이블 비우기
+                    
+                    data.forEach(function(question) {
+                        var row = $("<tr>");
+                        row.append($("<td>").text(question.id));
+                        row.append($("<td>").text(question.subject));
+                        row.append($("<td>").text(question.content));
+                        row.append($("<td>").text(question.create_date));
+                        
+                        var viewBtn = $("<button>").text("View").addClass("viewBtn");
+                        viewBtn.click(function() {
+                            showModal(question);
+                        });
+
+                        row.append($("<td>").append(viewBtn));
+
+                        tbody.append(row);
+                    });
+                });
+            });
+
+            $("#fetchDetailBtn").click(function() {
+            // 사용자가 입력한 question_id 가져오기
+            var questionId = $("#questionIdInput").val();
+
+            // API에서 데이터 가져오기
+            $.get("/api/question/detail/" + questionId, function(data) {
+                
+                // 데이터를 테이블에 추가
+                var tbody = $("#questionTable tbody");
+                tbody.empty();  // 테이블 비우기
+           
+                
+                var row = $("<tr>");
+                row.append($("<td>").text(data.id));
+                row.append($("<td>").text(data.subject));
+                row.append($("<td>").text(data.content));
+                row.append($("<td>").text(data.create_date));
+                var viewBtn = $("<button>").text("View").addClass("viewBtn");
+                    viewBtn.click(function() {
+                        showModal(data);
+                    });
+                    row.append($("<td>").append(viewBtn));
+                tbody.append(row);
+                
+            
+
+                });
+            });
+
+
+   
+
+        function showModal(question) {
+            // 모달에 데이터 설정
+            $("#modalQuestionId").text("Question ID: " + question.id);
+            $("#modalSubject").text("Subject: " + question.subject);
+            $("#modalContent").text("Content: " + question.content);
+            $("#modalCreateDate").text("Create Date: " + question.create_date);
+
+            // 모달을 화면에 표시
+            $("#questionModal").show();
+        }
+
+
+
+        // 모달 닫기 버튼 클릭 이벤트 처리
+        $(".close").click(function() {
+            $("#questionModal").hide();
+        });
+
+
+        $("#questionModal").on("submit", "#addQuestionForm", function(event) {
+            event.preventDefault();
+
+            // 선택한 질문의 ID 가져오기
+            var questionId = $("#modalQuestionId").text().replace("Question ID: ", "");
+            
+            // 질문 내용 가져오기
+            var questionContent = $("#questionContent").val();
+            console.log(questionContent)
+            // API에 POST 요청 보내기
+            $.ajax({
+                type: "POST",
+                url: "/api/answer/create/" + questionId,
+                contentType: "application/json",  // content-type을 JSON으로 설정
+                data: JSON.stringify({ content: questionContent }),  // 데이터를 JSON 문자열로 변환
+                success: function(response) {
+                    // 성공적으로 처리된 경우
+                    alert("Answer submitted successfully!");
+                    // 여기에서 추가로 원하는 작업을 수행할 수 있습니다.
+                },
+                error: function(error) {
+                    // 오류 발생 시 처리
+                    alert("Error submitting answer: " + error.responseText);
+                }
+            });
+        });
+
+
+
+
+
+
+
+
+
+
+
+    });
+
+
+
+
+    </script>
+
+</body>
+</html>

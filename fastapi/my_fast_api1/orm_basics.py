@@ -7,14 +7,16 @@ from database import Session
 s = Session()
 
 #데이터 추가하고 commit
-q = Question(subject='님들', content='오늘 날씨좀', create_date=datetime.now())
+q = Question(subject='님들2', content='오늘 날씨좀2', create_date=datetime.now())
 s.add(q)
 s.commit()
+s.close() # close는 세션 종료가 아니고 사용한 세션을 반환
 
 #q.id를 자동생성하기 위해서 question=q
 a = Answer(question=q, content='네이버에 나옵니다.', create_date=datetime.now())
 s.add(a)
 s.commit()
+s.close()
 ##조회
 
 lst = s.query(Question).all() # select * from question
