@@ -84,3 +84,22 @@ print(next(list_job))
 # 내가 코딩의 흐름을 통제할 수 있다 =>?
 
 
+
+
+# 반복문을 사용하여 차례로 yield값 호출
+def number_generator():
+    x = [1, 2, 3]
+    for i in x:
+        yield i
+ 
+for i in number_generator():
+    print(i)
+
+
+# yield from [이터러블객체] 를 이용하여 간단하게 표현
+def number_generator():
+    x = [1, 2, 3]
+    yield from x    # 리스트에 들어있는 요소를 한 개씩 바깥으로 전달
+ 
+for i in number_generator():
+    print(i)
