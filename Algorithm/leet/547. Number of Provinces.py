@@ -10,7 +10,10 @@ class Solution:
             stack = [i]
             if seen[i] == -1:
                 seen[i] = i
-
+            
+            else:
+                continue
+            
             while stack:
                 node = stack.pop()
                 for j in range(n):
