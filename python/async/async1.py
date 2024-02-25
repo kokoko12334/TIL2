@@ -52,52 +52,52 @@ async def print_add(a,b,time):
 
 
 
-# asyncio.run(print_add(1,2,3))
-# print("기타작업")
-# loop = asyncio.get_event_loop()
-# loop.run_until_complete(print_add(1,2,3))
-# loop.close()
+asyncio.run(print_add(1,2,3))
+print("기타작업")
+loop = asyncio.get_event_loop()
+loop.run_until_complete(print_add(1,2,3))
+loop.close()
 
 
 # 태스크, 코루틴, 퓨처객체는 비동기작업을 지칭하지만 세세한 차이가 있는 듯
 # 코루틴 => 퓨처(코루틴에서 기능 추가=> 비동기 작업의 현재상황) => 태스크(퓨처에서 더 기능 추가+ 상태확인 및 취소 가능)
 
 
-# async def compute_square(num):
-#     await asyncio.sleep(1)
-#     result = num**2
-#     return result
+async def compute_square(num):
+    await asyncio.sleep(1)
+    result = num**2
+    return result
 
-# #future
-# #future 객체를 생성하고 future객체안에 set_result를 설정하고 그 다음을 진행한다.
-# async def main_future():
-#     future = asyncio.Future()
+#future
+#future 객체를 생성하고 future객체안에 set_result를 설정하고 그 다음을 진행한다.
+async def main_future():
+    future = asyncio.Future()
 
-#     async def set_result():
-#         result = await compute_square(5)
-#         future.set_result(result)
+    async def set_result():
+        result = await compute_square(5)
+        future.set_result(result)
 
-#     asyncio.create_task(set_result())
+    asyncio.create_task(set_result())
 
 
-#     if not future.done():
-#         print("future is not done yet.")
+    if not future.done():
+        print("future is not done yet.")
     
-#     result = await future
-#     print(f"result:{result}")
+    result = await future
+    print(f"result:{result}")
 
-# asyncio.run(main_future())
+asyncio.run(main_future())
 
-# # future 객체를 생성해서 하는 것보다 더 간단하게 수행이 가능하다.
-# # => 비동기 작업을 바로 creata_task로 생성하고 이를 바로 실행한다.
-# async def main_task():
-#     task = asyncio.create_task(compute_square(5))
+# future 객체를 생성해서 하는 것보다 더 간단하게 수행이 가능하다.
+# => 비동기 작업을 바로 creata_task로 생성하고 이를 바로 실행한다.
+async def main_task():
+    task = asyncio.create_task(compute_square(5))
 
-#     if not task.done():
-#         print("task is not done yet.")
-#     result = await task
-#     print(f"result:{result}")
-# asyncio.run(main_task())
+    if not task.done():
+        print("task is not done yet.")
+    result = await task
+    print(f"result:{result}")
+asyncio.run(main_task())
 
 
 
