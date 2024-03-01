@@ -16,6 +16,8 @@ engine = create_engine(
 #commit => 데이터베이스에 영구 저장 => flush없이 바로 commmit해도 flush=> commit순으로 자동 flush됨
 #rollback => flush 된거 다 삭제(db 트랜잭션 buffer 삭제)
 
+#engine은 pooling과 데이터베이스 연결과 관련됨
+#session은 이 engine과 결합하여 ORM을 쓰려고 하는 것과 관련됨.
 session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
