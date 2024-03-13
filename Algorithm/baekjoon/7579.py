@@ -1,23 +1,17 @@
-N, M = map(int, input().split())
-A = [0] + list(map(int, input().split())) #byte
-C = [0] + list(map(int, input().split())) #cost
-dp = [[0 for _ in range(sum(C)+1)] for _ in range(N+1)] #냅색알고리즘이 실행될 dp
-result = sum(C) #열의 최댓값
+n, m = map(int, input().split())
+memory = [0] + list(map(int, input().split()))
+cost = [0] + list(map(int, input().split()))
+length = sum(cost)+1
+dp = [[0 for _ in range(length)] for _ in range(n+1)]
+ans = 10001
 
-for i in range(1, N+1):
-    byte = A[i]
-    cost = C[i]
-    
-    for j in range(1, sum(C) + 1):
-        if j < cost: 
-            dp[i][j] = dp[i-1][j]
-        else:
- 
-            dp[i][j] = max(byte + dp[i-1][j-cost], dp[i-1][j])
-            
-        if dp[i][j] >= M: 
-            result = min(result, j)
-if M != 0:
-    print(result)
-else:
-    print(0)
+for i in range(1, n+1):
+    ci, mi = cost[i], memory[i]
+    for j in range(length):
+        dp[i][j] = dp[i-1][j]
+    for j in range(ci, length):
+        dp[i][j] = max(dp[i-1][j-ci] + mi, dp[i][j])
+        if dp[i][j] >= m:
+            ans = min(ans, j)
+
+print(ans)
