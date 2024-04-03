@@ -1,3 +1,4 @@
+# dp[i][j] = 같은 것의 갯수가 아닌 바꿔야할 갯수
 class Solution:
     def minDistance(self, word1: str, word2: str) -> int:
         m = len(word1)
@@ -19,7 +20,8 @@ class Solution:
                 else:
                     dp[i][j] = min(dp[i-1][j-1], dp[i-1][j], dp[i][j-1]) + 1
         
+        # for i in dp:
+        #     print(i)
         return dp[m][n]
 
-a = Solution()
-a.minDistance(word1 = "intention", word2 = "execution")
+        
