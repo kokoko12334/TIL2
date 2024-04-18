@@ -13,7 +13,7 @@ for i in range(1, n):
     while idx >= 0 and tmp < lst[idx]:
         lst[idx+1] = lst[idx]
         idx = idx - 1
-        i -= 1
+
     lst[idx+1] = tmp
 
 end = time.time()
