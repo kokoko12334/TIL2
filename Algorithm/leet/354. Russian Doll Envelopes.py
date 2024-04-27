@@ -1,31 +1,20 @@
-from collections import defaultdict
-from heapq import *
 from bisect import bisect_left
 from typing import List
 class Solution:
     def maxEnvelopes(self, envelopes: List[List[int]]) -> int:
         
         n = len(envelopes)
+        envelopes.sort(key = lambda x: (x[0],-x[1]))
 
-        envelopes.sort(key = lambda x: x[1])
-        dic = defaultdict(list)
-
-        for i in range(n):
-            w, h = envelopes[i]
-            hq = dic[h]
-            heappush(hq,w)
-            dic[h] = hq
-
-        lis = [0]
-        for v in dic.values():
-            num = heappop(v)
-            if lis[-1] < num:
-                lis.append(num)
-            else:
-                idx = bisect_left(lis,num)
-                print(f"idx:{idx}, num:{num}")
-                lis[idx] = num
+        lis = [envelopes[0][1]]
         
-        print(lis)
+        for i in range(1, n):
+            h = envelopes[i][1]
+            if lis[-1] < h:
+                lis.append(h)
+            else:
+                idx = bisect_left(lis, h)
+                lis[idx] = h
 
-        return len(lis) - 1
+
+        return len(lis)
