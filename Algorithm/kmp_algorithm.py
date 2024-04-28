@@ -2,15 +2,17 @@ def kmp_search(text, pattern):
     # 실패 함수를 구성
     pi = compute_pi(pattern)
     j = 0  # 패턴의 인덱스
+    n_text = len(text)
+    n_pattern = len(pattern)
     found_indexes = []
 
     # 전체 텍스트를 순회
-    for i in range(len(text)):
+    for i in range(n_text):
         while j > 0 and text[i] != pattern[j]:
             j = pi[j - 1]
 
         if text[i] == pattern[j]:
-            if j == len(pattern) - 1:
+            if j == n_pattern - 1:
                 # 패턴이 일치하는 위치를 찾음
                 found_indexes.append(i - j)
                 j = pi[j]
@@ -34,4 +36,9 @@ def compute_pi(pattern):
 
     return pi
 
+string = "ababab"
+a = kmp_search(string, "ab")
+
+for i in a:
+    print(string[i:i+3])
 
