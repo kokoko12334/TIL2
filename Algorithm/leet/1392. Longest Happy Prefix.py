@@ -14,8 +14,6 @@ class Solution:
             if s[i] == s[j]:
                 j += 1  # 접두사 길이를 증가
                 pi[i] = j  # 해당 위치에 접두사 길이를 저장
-            else:
-                pi[i] = 0  # 일치하지 않으면 0을 저장
 
         nn = pi[-1]
         answer = s[(n-1)-(nn-1):n]
