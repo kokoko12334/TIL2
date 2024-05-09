@@ -1,4 +1,5 @@
 from collections import defaultdict
+
 def trans(time):
     arr = time.split(":")
     num = 0
