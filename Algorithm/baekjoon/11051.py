@@ -10,7 +10,6 @@ if k > 0:
     dp1 = [0]*(k)
     dp2 = [0]*(k)
 
-
     dp1[0] = n-k+1
     s = n-k+1
     for i in range(1,k):
