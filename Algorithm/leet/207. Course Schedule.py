@@ -2,31 +2,36 @@ from collections import defaultdict
 from typing import List
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-
-        pre = defaultdict(list)
-
-        for course, p in prerequisites:
-            pre[course].append(p)
         
-        taken = set()
+        g = defaultdict(list)
+        for c,p in prerequisites:
+            g[c].append(p)
 
-        def dfs(course):
-            if not pre[course]:
+        seen = set()
+
+        def dfs(c):
+            if not g[c]:
                 return True
             
-            if course in taken:
+            if c in seen:
                 return False
-            
-            taken.add(course)
 
-            for p in pre[course]:
-                if not dfs(p): return False
-            
-            pre[course] = []
+            seen.add(c)
+
+            for nextt in g[c]:
+                if not dfs(nextt):
+                    return False
+            g[c] = []
             return True
-        
-        for course in range(numCourses):
-            if not dfs(course):
+
+        for i in range(numCourses):
+            if not dfs(i):
                 return False
 
         return True
+
+
+
+
+
+
