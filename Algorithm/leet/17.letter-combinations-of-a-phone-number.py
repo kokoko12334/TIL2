@@ -1,3 +1,4 @@
+from typing import List
 class Solution:
     def letterCombinations(self, digits: str):
         phone = {
@@ -28,4 +29,36 @@ class Solution:
                 for i in phone[digits[rank+1]]:
                     stack.append([string+i,rank+1])
         
+        return answer
+
+
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        n = len(digits)
+        answer = []
+        dic ={
+            '1':'abcdefghijklmnopqrstuvwxyz',
+            '2':"abc",
+            '3':'def',
+            '4':'ghi',
+            '5':'jkl',
+            '6':'mno',
+            '7':'pqrs',
+            '8':'tuv',
+            '9':'wxyz',
+        }
+        def dfs(digits,idx,string,n):
+            
+            if len(string) == n:
+                answer.append(string)
+                return
+
+            next_num = digits[idx+1]
+            for s in dic[next_num]:
+                next_string = string + s
+                dfs(digits,idx+1,next_string,n)
+
+        if digits:
+            dfs(digits,-1,"",n)
+
         return answer

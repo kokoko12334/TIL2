@@ -6,23 +6,15 @@ class Solution:
         dic = defaultdict(list)
         n = len(wordList)
         s_n = len(beginWord)
+
         for i in range(s_n):
             for j in range(n):
                 arr = list(wordList[j])
-                arr[i] = beginWord[i]
-                if beginWord == "".join(arr):
-                    dic[beginWord].append(wordList[j])
-
-        for k in range(n):
-            for i in range(s_n):
-                for j in range(n):
-                    if k == j:
-                        continue
-                    arr = list(wordList[j])
-                    arr[i] = wordList[k][i]
-                    if wordList[k] == "".join(arr):
-                        dic[wordList[k]].append(wordList[j])
-
+                arr[i] = "*"
+                ns = "".join(arr)
+                dic[ns].append(wordList[j])
+        
+        
         q = deque()
         q.append((beginWord,1))
         seen = set()
@@ -32,10 +24,15 @@ class Solution:
 
             if s == endWord:
                 break
-            for s2 in dic[s]:
-                if s2 not in seen:
-                    seen.add(s2)
-                    q.append((s2,answer+1)) 
+            
+            for i in range(s_n):
+                arr = list(s)
+                arr[i] = "*"
+                ns = "".join(arr)
+                for j in dic[ns]:
+                    if j not in seen:
+                        seen.add(j)
+                        q.append((j,answer+1))
         
         if endWord not in seen:
             return 0
