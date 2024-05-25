@@ -43,15 +43,16 @@ class Solution:
             return new_res
 
         answer = []
-
+        arr = []
         def dfs(y,x,level,res):
 
             if seen[y][x]:
                 return
             
+            seen[y][x] = 1
             if level == n:
                 answer.append(1)
-                seen[y][x] = 1
+                arr.append((y,x))
                 return
 
             new_res = next_level(y,x,res)
@@ -62,10 +63,12 @@ class Solution:
                 # print(f"c:{ny,nx}")
                 dfs(ny,nx,level+1,child)
 
+            seen[y][x] = 0
         seen = [[0]*n for _ in range(n)]
         res = {(k,o) for k in range(n) for o in range(n)}
         for i in range(n):
             for j in range(n):
                 dfs(i,j,1,res)
+                
         # print(answer)
         return sum(answer)
