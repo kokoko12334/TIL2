@@ -128,6 +128,40 @@ def dijkstra(start_node):
 print(dijkstra(0))
 
 
+# 극한의 최적화
+import heapq
 
+INF = float("inf")
 
+graph = {
+    0:[(1,7),(2,12)],
+    1:[(2,2),(3,9)],
+    2:[(4,10)],
+    3:[(5,1)],
+    4:[(3,4),(5,5)],
+    5:[]
+}
 
+def dijkstra(start_node):
+    distances = [INF] * len(graph)  # 거리 정보를 무한대로 초기화
+    distances[start_node] = 0  # 시작 노드의 거리는 0으로 설정
+    queue = []
+    
+    # 시작 노드를 우선순위 큐에 추가 (거리, 노드 인덱스)
+    heapq.heappush(queue, (0, start_node))
+    
+    while queue:
+        current_distance, current_node = heapq.heappop(queue)
+        
+        if distances[current_node] < current_distance:
+            continue
+        
+        for tuple_ in graph[current_node]:
+            neighbor, distance = tuple_
+            new_distance = current_distance + distance
+            if new_distance < distances[neighbor]:
+                distances[neighbor] = new_distance
+                heapq.heappush(queue, (new_distance, neighbor))
+    
+    return distances
+print(dijkstra(0))
