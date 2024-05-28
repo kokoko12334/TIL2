@@ -1,74 +1,29 @@
+# row - col => 양의 대각선으로 행과 열의 차이 가 일정하면 같은 대각선
+# ro + col => 음의 대각선
 class Solution:
     def totalNQueens(self, n: int) -> int:
-        
-        def next_level(y,x,res):
-            no = set()
-            for i in range(n):
-                no.add((y,i))
-                no.add((i,x))
-            
-            s_y, s_x = y, x
-            s_y -= 1
-            s_x -= 1
-            while s_y >=0 and s_x >= 0:
-                no.add((s_y,s_x))
-                s_y -= 1
-                s_x -= 1
-
-            s_y, s_x = y, x
-            s_y -= 1
-            s_x += 1
-            while s_y >=0 and s_x < n:
-                no.add((s_y,s_x))
-                s_y -= 1
-                s_x += 1
-
-            s_y, s_x = y, x
-            s_y += 1
-            s_x += 1
-            while s_y < n and s_x < n:
-                no.add((s_y,s_x))
-                s_y += 1
-                s_x += 1
-            
-            s_y, s_x = y, x
-            s_y += 1
-            s_x -= 1
-            while s_y < n and s_x >= 0:
-                no.add((s_y,s_x))
-                s_y += 1
-                s_x -= 1
-            new_res = res - no
-
-            return new_res
-
-        answer = []
-        arr = []
-        def dfs(y,x,level,res):
-
-            if seen[y][x]:
-                return
-            
-            seen[y][x] = 1
-            if level == n:
-                answer.append(1)
-                arr.append((y,x))
-                return
-
-            new_res = next_level(y,x,res)
-            child = res & new_res
-            # print(f"인덱스:{y,x}, child:{child}, level:{level}")
-            for c in child:
-                ny,nx = c
-                # print(f"c:{ny,nx}")
-                dfs(ny,nx,level+1,child)
-
-            seen[y][x] = 0
-        seen = [[0]*n for _ in range(n)]
-        res = {(k,o) for k in range(n) for o in range(n)}
-        for i in range(n):
-            for j in range(n):
-                dfs(i,j,1,res)
+        def backtrack(row):
+            if row == n:
+                return 1
+            solutions = 0
+            for col in range(n):
+                if col in cols or (row - col) in pos_diags or (row + col) in neg_diags:
+                    continue
                 
-        # print(answer)
-        return sum(answer)
+                cols.add(col)
+                pos_diags.add(row - col)
+                neg_diags.add(row + col)
+                
+                solutions += backtrack(row + 1)
+                
+                cols.remove(col)
+                pos_diags.remove(row - col)
+                neg_diags.remove(row + col)
+                
+            return solutions
+        
+        cols = set()
+        pos_diags = set()
+        neg_diags = set()
+        
+        return backtrack(0)
