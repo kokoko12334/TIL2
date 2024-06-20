@@ -2,7 +2,7 @@ from collections import defaultdict
 # https://magentino.tistory.com/299
 def solution(grid, d, k):
     answer = 0
-    d.append(d[0])
+    
     d_n = len(d)
     row = len(grid)
     col = len(grid[0])
@@ -48,8 +48,6 @@ def solution(grid, d, k):
         result.append(current)
         back(0, (y,x))
         result.pop()
-    print("DDDDDDDDD")
-    for i in degree_info[first_degree]:
-        print(i)
+
     
     return answer
