@@ -4,7 +4,6 @@ class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
         
         row = len(matrix)
-        col = len(matrix[0])
 
         f = []
         for i in range(row):
