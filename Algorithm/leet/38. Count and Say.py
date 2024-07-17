@@ -20,4 +20,3 @@ class Solution:
         arr.append(s)
         result = "".join(arr[2:])
         return result
-        
