@@ -1,3 +1,5 @@
+import sys
+
 class SegmentTree:
     def __init__(self, data):
         self.n = len(data)
@@ -43,8 +45,23 @@ class SegmentTree:
         left_sum = self.query(L, R, 2 * node + 1, start, mid)
         right_sum = self.query(L, R, 2 * node + 2, mid + 1, end)
         return left_sum + right_sum
-    
 
+input = sys.stdin.readline
 
-arr = [1,2,3,4,5]
+n, m, k = [int(i) for i in input().split()]
+
+arr = []
+for _ in range(n):
+    arr.append(int(input()))
+
+seg_tree = SegmentTree(arr)
+
+for _ in range(m+k):
+    a, b, c = [int(i) for i in input().split()]
+
+    if a == 1:
+        seg_tree.update(b-1, c, 0, 0, n-1)
+    else:
+        result = seg_tree.query(b-1, c-1, 0, 0, n-1)
+        print(result)
 
