@@ -48,3 +48,8 @@ class SegmentTree:
 
 arr = [1,2,3,4,5]
 
+tree = SegmentTree(arr)
+
+tree.tree
+
+print(2**7)
