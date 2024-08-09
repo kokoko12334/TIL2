@@ -1,4 +1,4 @@
-def solution(beginning, target):
+def check(row, beginning, target):
     #검은색: 0 흰색:1
     answer = 0
     n = len(beginning)
@@ -7,13 +7,13 @@ def solution(beginning, target):
     beginning2 = [beginning[i][:] for i in range(n)]
     arr = [0] * m
     for j in range(m):
-        if beginning2[0][j] != target[0][j]:
+        if beginning2[row][j] != target[row][j]:
             arr[j] = 1
     
     summ = sum(arr)
     if summ == m:
         for j in range(m):
-            beginning2[0][j] = target[0][j]
+            beginning2[row][j] = target[row][j]
         answer += 1
             
     elif 0 < summ < m:
@@ -26,7 +26,10 @@ def solution(beginning, target):
                     else:
                         beginning2[i][j] = 1
                 answer += 1
-    for i in range(1, n):
+
+    for i in range(n):
+        if i == row:
+            continue
         arr = [0] * m
         for j in range(m):
             if beginning2[i][j] != target[i][j]:
@@ -38,48 +41,18 @@ def solution(beginning, target):
             answer = -1
             break
     
-    answer2 = 0
-    arr = [0] * n
-    for i in range(n):
-        if beginning[i][0] != target[i][0]:
-            arr[i] = 1
+    return answer
     
-    summ = sum(arr)
-    if summ == m:
-        for i in range(n):
-            beginning[i][0] = target[i][0]
-        answer2 += 1
-            
-    elif 0 < summ < n:
-        for i in range(n):
-            num = arr[i]
-            if num:
-                for j in range(m): 
-                    if beginning[i][j] == 1:
-                        beginning[i][j] = 0
-                    else:
-                        beginning[i][j] = 1
-                answer2 += 1
-        
-    for j in range(1, m):
-        arr = [0] * n
-        for i in range(n):
-            if beginning[i][j] != target[i][j]:
-                arr[i] = 1
-    
-        summ = sum(arr)
-        if summ == n:
-            answer2 += 1
-                
-        elif 0 < summ < n:
-            answer2 = -1
-            break
-    
-    if answer != -1 and answer2 != -1:
-        return min(answer, answer2)
-    if answer == -1 and answer2 != -1:
-        return answer2
-    if answer != -1 and answer2 == -1:
-        return answer
+def solution(beginning, target):
+    #검은색: 0 흰색:1
+    answer = float('inf')
+    n = len(beginning)
 
-    return -1
+    for i in range(n):
+        result = check(i, beginning, target)
+        # print(f"i:{i}, result:{result}")
+        if result != -1:
+            answer = min(answer, result)
+    if answer == float('inf'):
+        return -1
+    return answer
