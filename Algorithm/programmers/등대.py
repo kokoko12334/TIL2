@@ -1,4 +1,7 @@
+import sys
 from collections import defaultdict
+sys.setrecursionlimit(10**6)
+
 def solution(n, lighthouse):
     
     g = defaultdict(list)
@@ -10,23 +13,15 @@ def solution(n, lighthouse):
     dp = [[0, 1] for _ in range(n+1)]
     seen = [0] * (n+1)
     
-    def dfs(node, turn):
-        
-        
-        
+    def dfs(node):
+        seen[node] = 1
         for next_node in g[node]:
-            if seen[next_node] == 0:
-                seen[next_node] = 1
-                dp[node][0] += dfs(next_node, 1)
-                dp[node][1] += min(dfs(next_node, 0), dfs(next_node, 1)) + 1
-                seen[next_node] = 0
+            if not seen[next_node]:
+                off, on = dfs(next_node)
+                dp[node][0] += on
+                dp[node][1] += min(off, on)
     
-        return dp[node][turn]
+        return dp[node][0], dp[node][1]
+    dfs(1)
     
-    seen[1] = 1
-    dfs(1,0)
-    dfs(1,1)
-    for i in dp:
-        print(i)
-    answer = 0
-    return answer
+    return min(dp[1][0], dp[1][1])
