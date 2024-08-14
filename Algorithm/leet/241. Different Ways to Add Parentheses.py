@@ -1,20 +1,19 @@
-
 from typing import List
-
 class Solution:
-    def diffWaysToCompute(self, expression: str) -> List[int]:
-        answer = []
-        operator = []
-        n = len(expression)
-        arr = []
-        l = 0
-        for i in range(n):
-            if expression[i] in {"*", "-", "+"}:
-                
-                operator.append((i, expression[i]))
-                arr.append(expression[l:i])
-                arr.append(expression[i])
-                l = i + 1
-        arr.append(expression[l:i+1])
-        
-        return answer
+    def diffWaysToCompute(self, input: str) -> List[int]:
+        if input.isdigit():
+            return [int(input)]
+        res = []
+        for i in range(len(input)):
+            if input[i] in "-+*":
+                left = self.diffWaysToCompute(input[:i])
+                right = self.diffWaysToCompute(input[i+1:])
+                for l in left:
+                    for r in right:
+                        if input[i] == '+':
+                            res.append(l+r)
+                        elif input[i] == '-':
+                            res.append(l-r)
+                        elif input[i] == '*':
+                            res.append(l*r)
+        return res
