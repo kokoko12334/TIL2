@@ -15,10 +15,3 @@ def my_decorator(func):
 def say_hello(name):
     """Returns a greeting message."""
     return f"Hello, {name}"
-
-# 함수 호출
-print(say_hello("Alice"))
-
-# 함수의 메타데이터 확인
-print(say_hello.__name__)  # "say_hello" (변경되지 않음)
-print(say_hello.__doc__)   # "Returns a greeting message." (변경되지 않음)
