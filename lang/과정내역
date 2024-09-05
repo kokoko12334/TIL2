@@ -1,13 +1,14 @@
 https://wikidocs.net/233346
 
 1. 질문의도 파악
-2. 문서 조회 retrieve
-3. 중요한 내용 추리기
+2. 문서 찾는 중 retrieve
+3. 문서 내용 확인 중 retrieve
 4. 문서를 기반으로 답변 생성
+5. 여러가지 답변?
+-> 출처 밝히기
 
 
-rc/: 소스 코드 디렉토리
-
+src/: 소스 코드 디렉토리
 chains/: 랭체인의 체인 관련 코드
 agents/: 에이전트 관련 코드
 prompts/: 프롬프트 템플릿 관련 코드
@@ -24,3 +25,34 @@ notebooks/: Jupyter 노트북 파일
 requirements.txt: 프로젝트 의존성 목록
 
 main.py: 프로젝트의 진입점
+
+
+RAG 방법론: RAPTOR -> 임베딩 방식
+
+
+
+query expansion
+
+retrieve
+
+reranker
+
+passage filter
+
+passage compressor
+
+prompt maker
+
+geratro
+
+
+
+
+
+
+
+
+
+
+
+
