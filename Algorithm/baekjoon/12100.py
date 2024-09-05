@@ -1,3 +1,131 @@
+import sys
+from collections import deque
+input = sys.stdin.readline
+
+n = int(input())
+
+m = []
+for _ in range(n):
+    m.append([int(i) for i in input().split()])
+
+direction = ["l", "r", "u", "d"]
+arr = []
+def dfs(d, cnt, m):
+    global answer
+    if cnt == 6:
+        for i in range(n):
+            for j in range(n):
+                answer = max(answer, m[i][j])
+        return
+
+    new_m = m
+    if d == "l":
+        new_m = [[0]*n for _ in range(n)]
+        for i in range(n):
+            stack = deque([0])
+            flag = False
+            for j in range(n):
+                if m[i][j] == 0:
+                    continue
+                
+                if stack[-1] == m[i][j] and flag:
+                    stack[-1] *= 2
+                    flag = False
+                else:
+                    stack.append(m[i][j])
+                    flag = True
+            
+            stack.popleft()
+            j = 0
+            while stack:
+                num = stack.popleft()
+                new_m[i][j] = num 
+                j += 1
+
+    elif d == "r":
+        new_m = [[0]*n for _ in range(n)]
+        for i in range(n):
+            stack = deque([0])
+            flag = False
+            for j in range(n-1, -1, -1):
+                if m[i][j] == 0:
+                    continue
+                
+                if stack[-1] == m[i][j] and flag:
+                    stack[-1] *= 2
+                    flag = False
+                else:
+                    stack.append(m[i][j])
+                    flag = True
+
+            stack.popleft()
+            j = n - 1
+            while stack:
+                num = stack.popleft()
+                new_m[i][j] = num 
+                j -= 1
+            
+
+    elif d == "u":
+        new_m = [[0]*n for _ in range(n)]
+        for i in range(n):
+            stack = deque([0])
+            flag = False
+            for j in range(n):
+                if m[j][i] == 0:
+                    continue
+                
+                if stack[-1] == m[j][i] and flag:
+                    stack[-1] *= 2
+                    flag = False
+                else:
+                    stack.append(m[j][i])
+                    flag = True
+
+            stack.popleft()
+            j = 0
+            while stack:
+                num = stack.popleft()
+                new_m[j][i] = num 
+                j += 1
+    
+    elif d == "d":
+        new_m = [[0]*n for _ in range(n)]
+        for i in range(n):
+            stack = deque([0])
+            flag = False
+            for j in range(n-1, -1, -1):
+                if m[j][i] == 0:
+                    continue
+                
+                if stack[-1] == m[j][i] and flag:
+                    stack[-1] *= 2
+                    flag = False
+                else:
+                    stack.append(m[j][i])
+                    flag = True
+
+            stack.popleft()
+            j = n - 1
+            while stack:
+                num = stack.popleft()
+                new_m[j][i] = num 
+                j -= 1
+
+    for next_ in direction:
+        dfs(next_,cnt+1, new_m)
+
+answer = 0
+dfs("", 0, m)
+print(answer)
+
+
+
+
+
+
+
+
 # 방향대로 결합을 해야한다.
 import sys
 from itertools import product
