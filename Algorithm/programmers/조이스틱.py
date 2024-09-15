@@ -1,13 +1,20 @@
-
 def solution(name):
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    n = len(alphabet)
+    nn = len(alphabet)
+    n = len(name)
     answer = 0
-    for char in name:
+    arr = []
+    for i in range(n):
+        char = name[i]
+        if char != "A":
+            arr.append(i)
         idx = alphabet.index(char)
-        idx = min(idx, n-idx)
+        idx = min(idx, nn-idx)
         answer += idx
-        print(f"char:{char}, idx:{idx}")
         
-    print(answer)
+    print(arr)
+    
+    
+        
+    
     return answer

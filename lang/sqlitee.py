@@ -8,22 +8,59 @@ cursor = conn.cursor()
 
 # 테이블 생성 SQL
 create_table_query = '''
-CREATE TABLE IF NOT EXISTS financial_reports (
-    name VARCHAR(20),
-    code VARCHAR(10),
+CREATE TABLE IF NOT EXISTS income_statement (
+    stock_code VARCHAR(10),
     rcept_no VARCHAR(30),
     bsns_year INTEGER,
     reprt_code VARCHAR(10),
     account_nm VARCHAR(30),
     sj_nm VARCHAR(20),
     thstrm_amount INTEGER,
-    currency VARCHAR(10)
+    currency VARCHAR(10),
+    fs_div VARCHAR(10)
 )
 '''
+# 테이블 생성 실행
+cursor.execute(create_table_query)
+conn.commit()
+
+
+create_table_query = '''
+CREATE TABLE IF NOT EXISTS balance_sheet (
+    stock_code VARCHAR(10),
+    rcept_no VARCHAR(30),
+    bsns_year INTEGER,
+    reprt_code VARCHAR(10),
+    account_nm VARCHAR(30),
+    sj_nm VARCHAR(20),
+    thstrm_amount INTEGER,
+    currency VARCHAR(10),
+    fs_div VARCHAR(10)
+)
+'''
+cursor.execute(create_table_query)
+conn.commit()
+
+create_table_query = '''
+CREATE TABLE IF NOT EXISTS cash_flow (
+    stock_code VARCHAR(10),
+    rcept_no VARCHAR(30),
+    bsns_year INTEGER,
+    reprt_code VARCHAR(10),
+    account_nm VARCHAR(30),
+    sj_nm VARCHAR(20),
+    thstrm_amount INTEGER,
+    currency VARCHAR(10),
+    fs_div VARCHAR(10)
+)
+'''
+cursor.execute(create_table_query)
+conn.commit()
+
 
 delete_query = """
 
-drop table financial_reports
+drop table income_statements
 
 """
 
@@ -34,14 +71,21 @@ cursor.execute(create_table_query)
 conn.commit()
 
 # CSV 파일 경로
-csv_file_path = "C:/Users/KMP/Desktop/dart알림기/data/finance.csv"
+csv_file_path = "C:/Users/KMP/Desktop/재무제표시발/balance_sheet.csv"
+df = pd.read_csv(csv_file_path, index_col=False, dtype=str)
+df.to_sql('balance_sheet', conn, if_exists='append', index=False)
 
-# CSV 파일을 pandas DataFrame으로 읽기
-df = pd.read_csv(csv_file_path)
+# CSV 파일 경로
+csv_file_path = "C:/Users/KMP/Desktop/재무제표시발/income_statement.csv"
+df = pd.read_csv(csv_file_path, index_col=False, dtype=str)
+df.to_sql('income_statement', conn, if_exists='append', index=False)
 
 
-# DataFrame 데이터를 SQLite에 업로드
-df.to_sql('financial_reports', conn, if_exists='append', index=False)
+# CSV 파일 경로
+csv_file_path = "C:/Users/KMP/Desktop/재무제표시발/cash_flow_statement.csv"
+df = pd.read_csv(csv_file_path, index_col=False, dtype=str)
+df.to_sql('cash_flow', conn, if_exists='append', index=False)
+
 
 # 커밋 후 연결 종료
 conn.commit()
