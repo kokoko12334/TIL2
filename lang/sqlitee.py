@@ -9,16 +9,7 @@ cursor = conn.cursor()
 
 
 
-
-
-# 데이터베이스 연결 설정
-db = MySQLdb.connect(
-    host="database-1.cze84wyq6k1r.ap-northeast-2.rds.amazonaws.com",    # 데이터베이스 호스트
-    user="admin", # 사용자 이름
-    passwd="gnjf!!7518", # 비밀번호
-    db="finchat"    # 사용할 데이터베이스 이름
-)
-cursor = db.cursor()
+# cursor = db.cursor()
 
 
 # 테이블 생성 SQL
@@ -36,8 +27,8 @@ CREATE TABLE IF NOT EXISTS income_statement (
 )
 '''
 # 테이블 생성 실행
-cursor.execute(create_table_query)
-db.commit()
+# cursor.execute(create_table_query)
+# db.commit()
 
 
 create_table_query = '''
@@ -53,8 +44,8 @@ CREATE TABLE IF NOT EXISTS balance_sheet (
     fs_div VARCHAR(10)
 )
 '''
-cursor.execute(create_table_query)
-db.commit()
+# cursor.execute(create_table_query)
+# db.commit()
 
 create_table_query = '''
 CREATE TABLE IF NOT EXISTS cash_flow (
@@ -69,8 +60,8 @@ CREATE TABLE IF NOT EXISTS cash_flow (
     fs_div VARCHAR(10)
 )
 '''
-cursor.execute(create_table_query)
-db.commit()
+# cursor.execute(create_table_query)
+# db.commit()
 
 
 delete_query = """
@@ -81,42 +72,36 @@ drop table income_statements
 
 
 
-import pandas as pd
-from sqlalchemy import create_engine
+# import pandas as pd
+# from sqlalchemy import create_engine
 
-# 데이터베이스 연결 정보
-host = "database-1.cze84wyq6k1r.ap-northeast-2.rds.amazonaws.com"
-user = "admin"
-passwd = "gnjf!!7518"
-db = "finchat"
+# # 데이터베이스 엔진 생성
+# engine = create_engine(f'mysql+mysqldb://{user}:{passwd}@{host}/{db}')
 
-# 데이터베이스 엔진 생성
-engine = create_engine(f'mysql+mysqldb://{user}:{passwd}@{host}/{db}')
+# conn = engine.connect()
 
-conn = engine.connect()
-
-# CSV 파일 경로
-csv_file_path = "C:/Users/KMP/Desktop/재무제표분석고/balance_sheet.csv"
-df = pd.read_csv(csv_file_path, index_col=False, dtype=str)
-df.to_sql('balance_sheet', engine, if_exists='append', index=False)
+# # CSV 파일 경로
+# csv_file_path = "C:/Users/KMP/Desktop/재무제표분석고/balance_sheet.csv"
+# df = pd.read_csv(csv_file_path, index_col=False, dtype=str)
+# df.to_sql('balance_sheet', engine, if_exists='append', index=False)
 
 
-# CSV 파일 경로
-csv_file_path = "C:/Users/KMP/Desktop/재무제표분석고/income_statement.csv"
-df = pd.read_csv(csv_file_path, index_col=False, dtype=str)
-df.to_sql('income_statement', engine, if_exists='append', index=False)
+# # CSV 파일 경로
+# csv_file_path = "C:/Users/KMP/Desktop/재무제표분석고/income_statement.csv"
+# df = pd.read_csv(csv_file_path, index_col=False, dtype=str)
+# df.to_sql('income_statement', engine, if_exists='append', index=False)
 
 
 
-# CSV 파일 경로
-csv_file_path = "C:/Users/KMP/Desktop/재무제표분석고/cash_flow_statement.csv"
-df = pd.read_csv(csv_file_path, index_col=False, dtype=str)
-df.to_sql('cash_flow', engine, if_exists='append', index=False)
+# # CSV 파일 경로
+# csv_file_path = "C:/Users/KMP/Desktop/재무제표분석고/cash_flow_statement.csv"
+# df = pd.read_csv(csv_file_path, index_col=False, dtype=str)
+# df.to_sql('cash_flow', engine, if_exists='append', index=False)
 
 
-# 커밋 후 연결 종료
-conn.commit()
-conn.close()
+# # 커밋 후 연결 종료
+# conn.commit()
+# conn.close()
 
 
 
