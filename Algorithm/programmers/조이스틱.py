@@ -1,20 +1,21 @@
-def solution(name):
-    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    nn = len(alphabet)
-    n = len(name)
+
+
+
+def solution(storey):
     answer = 0
-    arr = []
-    for i in range(n):
-        char = name[i]
-        if char != "A":
-            arr.append(i)
-        idx = alphabet.index(char)
-        idx = min(idx, nn-idx)
-        answer += idx
-        
-    print(arr)
-    
-    
-        
-    
+    storey = list(map(int, str(storey)))
+
+    while storey:
+        floor = storey.pop()
+        if (floor == 5 and ((storey and storey[-1] < 5) or not storey)) or floor < 5:
+            answer += floor
+        else:
+            answer += (10 - floor)
+            if(storey):
+                storey.append(storey.pop() + 1)
+            else:
+                answer += 1
+
     return answer
+
+print(solution(5555))
