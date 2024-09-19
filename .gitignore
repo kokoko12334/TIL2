@@ -1,1 +1,5 @@
 /lang/.env
+/hk/.env
+/hk/fake_secret.json
+/hk/real_secret.json
+/hk/__pycache__
