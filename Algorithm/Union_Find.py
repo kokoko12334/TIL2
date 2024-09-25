@@ -43,10 +43,10 @@ find(2,parent)
 
 
 
-def find(arent, a) -> int:
+def find(parent, a) -> int:
         if parent[a] == a:
             return a
-        parent[a] = self.find(parent, parent[a])
+        parent[a] = find(parent, parent[a])
         return parent[a]
 
 def union(parent, rank, a: int, b: int) -> None:
