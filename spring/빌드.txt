@@ -1,0 +1,6 @@
+- 빌드방법
+gradlew.bat (윈도우)로 
+./gradlw.bat build로 빌드 폴더 만들고
+build/libs/ .jar 파일 실행 (java -jar 파일)
+
+./gradlw.bat clean 하면 빌드 폴더 삭제
