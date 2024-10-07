@@ -1,5 +1,6 @@
 package hello.hello_spring.service;
 
+import hello.hello_spring.controller.MemberController;
 import hello.hello_spring.domain.Member;
 import hello.hello_spring.repository.MemberRepository;
 import hello.hello_spring.repository.MemoryMemberRepository;
@@ -18,6 +19,7 @@ public class MemberService {
     @Autowired
     public MemberService(MemberRepository memberRepository){
         this.memberRepository = memberRepository;
+        System.out.println("MemberRepository implementation class: " + memberRepository.getClass().getSimpleName());
     }
 
     public Long join(Member member){
