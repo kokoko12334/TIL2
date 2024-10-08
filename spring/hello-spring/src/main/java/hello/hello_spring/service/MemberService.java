@@ -11,12 +11,12 @@ import java.util.List;
 import java.util.Optional;
 // 클래스에서 커서 -> 오른족위에 점 3개 -> 테스트생성 하면 junit테스트 자동생성
 
-@Service
+//@Service
 public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    @Autowired
+//    @Autowired
     public MemberService(MemberRepository memberRepository){
         this.memberRepository = memberRepository;
         System.out.println("MemberRepository implementation class: " + memberRepository.getClass().getSimpleName());
