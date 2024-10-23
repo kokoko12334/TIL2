@@ -5,9 +5,6 @@ no = set()
 if m:
     no = set(input().split())
 
-nn = len(str(n))
-
-arr = []
 minn = abs(n - 100)
 for i in range(1000001):
     num = str(i)
