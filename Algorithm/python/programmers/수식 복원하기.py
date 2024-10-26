@@ -45,11 +45,11 @@ def solution(expressions):
             trans_c = trans(n, c)
             if op == "+":
                 re = trans_a + trans_b
-                if re == trans_c:
+                if re == reverse(trans_c):
                     sub3.add(n)
             else:
                 re = trans_a - trans_b
-                if re == trans_c:
+                if re == reverse(trans_c):
                     sub3.add(n)
         return sub3
     sub = set(range(2, 10))
