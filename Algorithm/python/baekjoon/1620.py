@@ -4,7 +4,7 @@ input = sys.stdin.readline
 
 n, m = [int(i) for i in input().split()]
 g = dict()
-arr = [0] * (n + 1)
+arr = [""] * (n + 1)
 
 for i in range(n):
     name = input().strip("\n")
