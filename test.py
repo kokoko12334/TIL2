@@ -2,52 +2,39 @@
 구매 = 9
 promotion_stock = 10
 original_stock = 100
-buy = 1
-get = 4
+buy = 4
+get = 1
 
 추가수량여부 = 0
 정가결제여부 = 0
 증정 = 0
 정가구매 = 0
-# 행사상품 나누고 남은건 무조건 정가결제여부로
+
 while 구매 > 0:
-    
-    if promotion_stock - (정가구매 + 증정) > buy:
-
-        if 구매 >= buy:
-            구매 -= buy
+    if promotion_stock - (정가구매 + 증정) > 0:
+        if promotion_stock - (정가구매 + 증정) >= buy + get:
             정가구매 += buy
-
-        else:
-            구매 -= 구매
-            정가구매 += 구매
-
-        if promotion_stock - (정가구매 + 증정) >= get and 구매 >= get: #프로모션 재고가 남고 구매한만큼 증정한다.
+            구매 -= buy
             증정 += get
             구매 -= get
-
-        elif promotion_stock - (정가구매 + 증정) < get and 구매 >= get: 
-            증정 += promotion_stock - (정가구매 + 증정)
-            구매 -= promotion_stock - (정가구매 + 증정)
-
-        elif promotion_stock - (정가구매 + 증정) >= get and 구매 < get: #프로모션 재고가 남고 구매한것보다 더 받아갈수 있다.
-            # if 구매 == 0:
-            #     추가수량여부 = get - 구매
-            # else:
-            증정 += min(get, 구매)
-            구매 -= min(get, 구매)
-            if 구매 == 0:
-                추가수량여부 = get - 구매      
-
-        elif promotion_stock - (정가구매 + 증정) < get and 구매 < get:
-            if 구매 == 0:
-                추가수량여부 = promotion_stock - (정가구매 + 증정) - 구매
+        else:
+            if 구매 >= buy and promotion_stock - (정가구매 + 증정 + buy) > 0:
+                정가구매 += buy
+                구매 -= buy
+                증정 += promotion_stock - (정가구매 + 증정)
+                구매 = 0
             else:
-                증정 += min(promotion_stock - (정가구매 + 증정), 구매)
-                구매 -= min(promotion_stock - (정가구매 + 증정), 구매)
+                정가결제여부 += 구매
+                구매 = 0
+        
     else:
         정가결제여부 += 구매
-        구매 -= 구매
+        구매 = 0
+
+if 구매 < 0:
+    추가수량여부 = - 구매
+    증정 -= 추가수량여부
+    구매 = 0
 
 def 재고_차감(차감할_재고):
     global promotion_stock, original_stock
