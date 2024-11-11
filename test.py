@@ -1,8 +1,8 @@
 
-구매 = 9
-promotion_stock = 10
+구매 = 10
+promotion_stock = 7
 original_stock = 100
-buy = 4
+buy = 2
 get = 1
 
 추가수량여부 = 0
@@ -42,8 +42,8 @@ def 재고_차감(차감할_재고):
     if promotion_stock >= 차감할_재고:
         promotion_stock -= 차감할_재고
     else:
-        promotion_stock -= promotion_stock
         차감할_재고 -= promotion_stock
+        promotion_stock -= promotion_stock
         original_stock -= 차감할_재고
 
 우선_차감될_재고 = 증정 + 정가구매
