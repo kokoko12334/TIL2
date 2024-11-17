@@ -4,37 +4,38 @@ input = sys.stdin.readline
 
 n = int(input())
 
-g = defaultdict(list)
+g = defaultdict(set)
 for _ in range(n-1):
     a, b = [int(i) for i in input().split()]
-    g[a].append(b)
-    g[b].append(a)
+    g[a].add(b)
+    g[b].add(a)
 
 path = [int(i) for i in input().split()]
-
-q = deque([(1,1)])
-seen = [0] * (n+1)
-seen[1] = 1
-layer = defaultdict(set)
-find_key = [0] * (n+1)
-global_cnt = 0
-while q:
-    node, cnt = q.popleft()
-    global_cnt += 1
-    find_key[global_cnt] = cnt
-    layer[cnt].add(node)
-    for i in g[node]:
-        if seen[i] == 0:
-            seen[i] = 1
-            q.append((i, cnt+1))
-
 answer = 1
-for i in range(n):
-    num = path[i]
-    key_ = find_key[i+1]
-    lst = layer[key_]
-    if num not in lst:
-        answer = 0
-        break
+if path[0] != 1:
+    answer = 0
+else:
+    seen = set()
+    seen.add(1)
+    order = deque()
+    next_node = g[1]
+    for i in range(1, n):
+        if not next_node:
+            next_node = order.popleft()
+        num = path[i]
+        if num in next_node:
+            next_node.remove(num)
+            seen.add(num)
+            add_node = g[num] - seen
+            if add_node:
+                order.append(g[num] - seen)
+        else:
+            answer = 0
+            break
+
 
 print(answer)
+
+
+
+
