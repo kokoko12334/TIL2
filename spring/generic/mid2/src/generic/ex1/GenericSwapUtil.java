@@ -6,4 +6,8 @@ public class GenericSwapUtil {
         array[index1] = array[index2];
         array[index2] = temp;
     }
+
+    public void func(int num) {
+        num++;
+    }
 }
