@@ -1,55 +1,42 @@
+from collections import defaultdict, deque
 import sys
-from collections import defaultdict
-sys.setrecursionlimit(10**7)
 input = sys.stdin.readline
-n = int(input())
-m = int(input())
+MAX = float('inf')
 
-graph = [[0] * (n + 1) for _ in range(n + 1)]
-for _ in range(m):
-    from_, to_, cost = [int(i) for i in input().split()]
-    graph[from_][to_] = cost
+N = int(input())
+M = int(input())
 
-s, e = [int(i) for i in input().split()]
+edge_dict = defaultdict(list)
+rev_edge_dict = defaultdict(list)
 
+for _ in range(M) :
+  a, b, c = map(int, input().split())
+  edge_dict[a].append((b, c))
+  rev_edge_dict[b].append((a, c))
+S, E = map(int, input().split())
 
+visited = [-MAX]*(N+1)
+visited[S] = 0
+q = deque([(S, 0)])
+while q :
+  node, dist = q.popleft()
+  for nxt, ndist in edge_dict[node] :
+    if visited[nxt] < dist + ndist :
+      visited[nxt] = dist + ndist
+      q.append((nxt, dist + ndist))
 
-def dfs(node, cost):
-    global answer
-
-    if cost < answer:
-        return
-
-    if node == e:
-        answer = max(answer, cost)
-        result[cost].append(arr[:])
-        return
-    
-    for i in range(1, n+1):
-        next_cost = graph[node][i]
-        if next_cost != 0 and not seen[i]:
-            seen[i] = 1
-            arr.append(i)
-            dfs(i, cost + next_cost)
-            seen[i] = 0
-            arr.pop()
-
-seen = [0] * (n + 1)
-arr = [s]
-seen[s] = 1
-answer = 0
-result = defaultdict(list)
-dfs(1, 0)
-
-sett = set()
-for arr in result[answer]:
-    for i in range(len(arr)-1):
-        key = (arr[i], arr[i+1])
-        sett.add(key)
-print(answer)
-print(len(sett))
-print(result)
-
-
-
-arr = [[0] * 10000 for _ in range(10000)]
+print(visited[E])
+rev_visited = [False]*(N+1)
+rev_visited[E] = True
+ans = 0
+q = deque([E])
+while q :
+  node = q.popleft()
+  for prev, c in rev_edge_dict[node] :
+    if visited[prev] + c != visited[node] :
+      continue
+    ans += 1
+    if not rev_visited[prev] :
+      rev_visited[prev] = True
+      q.append(prev)
+print(ans)
