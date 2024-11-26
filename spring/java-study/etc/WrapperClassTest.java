@@ -1,3 +1,5 @@
+package etc;
+
 public class WrapperClassTest {
     private static int counter = 0;
 

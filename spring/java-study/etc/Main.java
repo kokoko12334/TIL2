@@ -1,3 +1,5 @@
+package etc;
+
 import java.util.EnumSet;
 
 public class Main {

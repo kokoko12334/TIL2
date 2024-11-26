@@ -1,3 +1,5 @@
+package etc;
+
 public class Day1 {
     public final static Day1 Monday = new Day1();
     public final static Day1 TUESDAY = new Day1();
