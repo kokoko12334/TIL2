@@ -14,7 +14,7 @@ public class TestMain {
         try{
             tx.begin();
             Member member = em.find(Member.class, 1L);
-            member.setName("pppppp");
+//            member.setName("pppppp");
             tx.commit();
 
         } catch (Exception e) {

@@ -38,16 +38,16 @@ public class JpaMain {
 //            }
 
             Member member1 = em.find(Member.class, 200L);
-            System.out.println(member1.getName());
+            System.out.println(member1.getUsername());
             System.out.println("#######################");
 
             Member member2 = em.find(Member.class, 200L);
-            System.out.println(member2.getName());
+            System.out.println(member2.getUsername());
             System.out.println("#######################");
 
             em.detach(member1);
             Member member3 = em.find(Member.class, 200L);
-            System.out.println(member3.getName());
+            System.out.println(member3.getUsername());
             System.out.println("#######################");
             tx.commit();
 //            long end = System.currentTimeMillis();

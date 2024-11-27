@@ -16,7 +16,7 @@ public class JpaMain3 {
         try {
 
             Member member = em.find(Member.class, 200L);
-            member.setName("komin"); // 변경 감지로 인해 컨텍스트에 있는 내용이 알아서 수정
+//            member.setName("komin"); // 변경 감지로 인해 컨텍스트에 있는 내용이 알아서 수정
 
 
             tx.commit();
