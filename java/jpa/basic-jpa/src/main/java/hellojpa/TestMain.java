@@ -13,10 +13,8 @@ public class TestMain {
         EntityTransaction tx = em.getTransaction();
         try{
             tx.begin();
-            Member member = new Member();
-            member.setId(1L);
-            member.setName("kd");
-            em.persist(member);
+            Member member = em.find(Member.class, 1L);
+            member.setName("pppppp");
             tx.commit();
 
         } catch (Exception e) {
