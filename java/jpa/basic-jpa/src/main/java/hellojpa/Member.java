@@ -5,9 +5,15 @@ import java.util.Date;
 
 @Entity
 //@Table(name = "mbf")
+@SequenceGenerator(
+        name = "seq_generator",
+        sequenceName = "ko_seq", // 시퀀스 객체 이름
+        initialValue = 1, allocationSize = 50
+)
 public class Member {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_generator")
     private Long id;
 
     @Column(name = "name")
