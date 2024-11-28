@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 public class Baek1107 {
     public static void main(String[] args) throws IOException {
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); // 버퍼(문자열처리리더(바이트처리 리더))
 
         int n = Integer.parseInt(br.readLine());
         int m = Integer.parseInt(br.readLine());
