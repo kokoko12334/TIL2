@@ -8,7 +8,7 @@ public class ReaderWriterMainV4 {
 
     public static void main(String[] args) throws IOException {
         String writeString = "가나다다다다다\ndsdsdsds";
-        // v2랑 같은거임 내부에서 fileoutputstream 객체를 갔다가 쓴거임.
+
         FileWriter fw = new FileWriter(TextConst.File_NAME, StandardCharsets.UTF_8);
         BufferedWriter bw = new BufferedWriter(fw, BUFFER_SIZE);
         bw.write(writeString);
