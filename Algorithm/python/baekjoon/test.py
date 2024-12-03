@@ -1,54 +1,73 @@
+#16947번 문제 난이도 골드3
 import sys
-sys.setrecursionlimit(10**5)
+from collections import deque
+sys.setrecursionlimit(10**8)
 
-# 루트노드부터 시작하여 깊이를 구하는 함수
-def dfs(now, depth):
-    c[now] = True
-    d[now] = depth
+n=int(sys.stdin.readline())
+graph=[[] for _ in range(n+1)]
+arr=[-1]*(n+1)
 
-    for next_ in graph[now]:
-    	# 깊이를 이미 구한 경우 무시
-        if c[next_]:
-            continue
-        parent[next_] = now
-        dfs(next_, depth+1)
+visited=[False]*(n+1)
 
+#과거에 간 곳과 겹치면 안 됨
 
-def lca(a, b):
-    # 두 노드의 깊이가 다를 경우
-    while d[a] != d[b]:
-    	# 깊이가 큰 노드가 부모 노드로 이동
-        if d[a] > d[b]:
-            a = parent[a]
-        else:
-            b = parent[b]
-    # 깊이는 같지만 두 노드가 서로 다를 경우
-    while a != b:
-    	# 두 노드를 부모 노드로 이동
-        a = parent[a]
-        b = parent[b]
-    return a
+def dfs(last,now):
+    global loop
+    global loop_start
+    global loop_end
+    
+    stack.append(now)
+    visited[now]=True
 
+    for node in graph[now]:
+        if node!= last:
+            if not visited[node]:
+                dfs(now,node)
+            else:
+                loop=True
+                loop_start=node
+                loop_end=now
+                return
+        if loop:
+            return
+    stack.pop()
+    
+   
+for i in range(n):
+    a,b=map(int,sys.stdin.readline().split())
+    graph[a].append(b)
+    graph[b].append(a)
 
-n = int(input())
-arr = []
-maxN = 0
-for _ in range(n-1):
-    x, y = map(int, input().split())
-    arr.append([x, y])
-    maxN = max(maxN, max([x, y]))
+loop=False
+loop_start=-1
+loop_end=-1
 
-graph = [[] for _ in range(maxN+1)]
-for x, y in arr:
-    graph[x].append(y)
-    graph[y].append(x)
+stack=[]
+L=[]
+dfs(-1,1)
 
-parent = [0] * (maxN + 1)
-d = [0] * (maxN + 1)
-c = [0] * (maxN + 1)
+queue=deque()
 
-dfs(1, 0) # 루트노드 1 깊이는 0
-m = int(input())
-for _ in range(m):
-    x, y = map(int, input().split())
-    print(lca(x, y))
+while(1):
+    x=stack.pop()
+    queue.append(x)
+    arr[x]=0
+    if x==loop_start:
+        break
+
+#오잉? deque()로 print하는 경우 다르게 출력되네.
+
+#힌트:dfs로 loop를 구한 다음에 bfs로 답을 낸다.
+
+def bfs():
+    while queue:
+        x=queue.popleft()
+        
+        for node in graph[x]:
+            if arr[node]==-1:
+                queue.append(node)
+                arr[node]=arr[x]+1
+
+bfs()
+
+print(" ".join(map(str,arr[1:])))

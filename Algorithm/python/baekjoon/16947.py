@@ -27,22 +27,25 @@ def dfs(start, parent, node):
             continue
         
         seen[next_node] = 1
+        arr.append(next_node)
         result = dfs(start, node, next_node)
         if result:
             return True
         seen[next_node] = 0
+        arr.pop()
 
 cycle = set()
 for node in range(1, n+1):
     seen = [0] * (n + 1)
     seen[node] = 1
-    if dfs(node, -1, node):
-        cycle.add(node)
+    arr = [node]
+    if dfs(node, -1, node): # 어파치 다 확인 안해도 같은 싸이클은 모두 확인 가능
+        cycle = set(arr)
+        break
 
 answer = [0] * (n + 1)
 
 no_cycle = set(range(1, n+1)) - cycle
-
 
 for start in no_cycle:
     seen = [0] * (n + 1)
