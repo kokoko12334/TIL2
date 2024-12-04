@@ -38,7 +38,7 @@ public class MemberService {
             long timeMs = finish - start;
             System.out.println("join = " + timeMs + "ms");
         }
-    }
+    }//277673 194.29
 
     private void validateDuplicateMember(Member member) {
         memberRepository.findByName(member.getName())
