@@ -1,10 +1,6 @@
 package hellojpa;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
-import java.util.List;
+import javax.persistence.*;
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -37,18 +33,34 @@ public class JpaMain {
 ////                tx.commit();
 //            }
 
-            Member member1 = em.find(Member.class, 200L);
-            System.out.println(member1.getUsername());
-            System.out.println("#######################");
+//            Member member1 = em.find(Member.class, 200L);
+//            System.out.println(member1.getUsername());
+//            System.out.println("#######################");
+//
+//            Member member2 = em.find(Member.class, 200L);
+//            System.out.println(member2.getUsername());
+//            System.out.println("#######################");
+//
+//            em.detach(member1);
+//            Member member3 = em.find(Member.class, 200L);
+//            System.out.println(member3.getUsername());
+//            System.out.println("#######################");
 
-            Member member2 = em.find(Member.class, 200L);
-            System.out.println(member2.getUsername());
-            System.out.println("#######################");
+            Team team = new Team();
+            team.setTeamName("team1");
+            em.persist(team);
 
-            em.detach(member1);
-            Member member3 = em.find(Member.class, 200L);
-            System.out.println(member3.getUsername());
-            System.out.println("#######################");
+            Member member = new Member();
+            member.setUsername("koko");
+            member.setTeam(team);
+
+            em.persist(member);
+
+            Member findMember = em.find(Member.class, member.getId());
+            Team findTeam = findMember.getTeam();
+
+            System.out.println("team:=" + findTeam.getTeamName());
+
             tx.commit();
 //            long end = System.currentTimeMillis();
 
