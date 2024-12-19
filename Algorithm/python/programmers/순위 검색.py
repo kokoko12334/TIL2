@@ -1,4 +1,4 @@
-from bisect import bisect_left
+afrom bisect import bisect_left
 from itertools import combinations
 from collections import deque
 def solution(info, query):
