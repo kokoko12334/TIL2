@@ -1,6 +1,7 @@
 package hellojpa;
 
 import javax.persistence.*;
+import java.util.List;
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -47,17 +48,32 @@ public class JpaMain {
 //            System.out.println("#######################");
 
             Team team = new Team();
-            team.setTeamName("team1");
+            team.setTeamName("team2");
             em.persist(team);
 
             Member member = new Member();
-            member.setUsername("koko");
+            member.setUsername("koko2");
             member.setTeam(team);
 
+            Member member2 = new Member();
+            member2.setUsername("koko2112");
+            member2.setTeam(team);
+
             em.persist(member);
+            em.persist(member2);
+
+            // 캐시 무효화
+            em.flush();
+            em.clear();
 
             Member findMember = em.find(Member.class, member.getId());
             Team findTeam = findMember.getTeam();
+
+            List<Member> members = findTeam.getMembers();
+
+            for (Member m: members) {
+                System.out.println(m.getUsername());
+            }
 
             System.out.println("team:=" + findTeam.getTeamName());
 

@@ -19,7 +19,7 @@ public class Member {
     @Column(name = "name")
     private String username;
 
-    @ManyToOne
+    @ManyToOne //자기가 many
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
@@ -47,6 +47,17 @@ public class Member {
     }
 
     public void setTeam(Team team) {
+
         this.team = team;
+        team.getMembers().add(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "team=" + team +
+                ", username='" + username + '\'' +
+                ", id=" + id +
+                '}';
     }
 }
