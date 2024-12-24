@@ -3,7 +3,7 @@ package hellojpa;
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity
+//@Entity
 //@Table(name = "mbf")
 //@SequenceGenerator(
 //        name = "seq_generator",

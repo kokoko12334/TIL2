@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Team2 {
+public class Team {
 
     @Id @GeneratedValue
     @Column(name = "id")
@@ -14,10 +14,10 @@ public class Team2 {
     @Column(name = "name")
     private String teamName;
 
-    @OneToMany(mappedBy = "team2")
+    @OneToMany(mappedBy = "team")
     private List<User> users = new ArrayList<>();
 
-    public Team2() {
+    public Team() {
     }
 
     public Long getTeamId() {

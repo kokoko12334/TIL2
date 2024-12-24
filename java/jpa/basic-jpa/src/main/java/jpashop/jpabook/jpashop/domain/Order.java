@@ -1,6 +1,5 @@
 package jpashop.jpabook.jpashop.domain;
 
-import hellojpa.Member;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

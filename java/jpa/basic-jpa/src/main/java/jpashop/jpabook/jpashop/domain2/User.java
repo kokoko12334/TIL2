@@ -12,9 +12,9 @@ public class User {
     @Column(name = "user_name")
     private String username;
 
-    @ManyToOne
-    @JoinColumn(name = "team2")
-    private Team2 team2;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "team_id")
+    private Team team;
 
     public User() {
     }
@@ -35,11 +35,11 @@ public class User {
         this.username = username;
     }
 
-    public Team2 getTeam() {
-        return team2;
+    public Team getTeam() {
+        return team;
     }
 
-    public void setTeam(Team2 team2) {
-        this.team2 = team2;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }
