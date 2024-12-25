@@ -1,9 +1,9 @@
 package jpashop.jpabook.jpashop.domain2;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import org.hibernate.engine.spi.PersistenceContext;
+import org.hibernate.engine.spi.SessionImplementor;
+
+import javax.persistence.*;
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -21,28 +21,41 @@ public class JpaMain {
             User user = new User();
             user.setUsername("kokoko");
             user.setTeam(team);
-
-            User user2 = new User();
-            user2.setUsername("user2");
-
             em.persist(user);
-            em.persist(user2);
+//
+//            User user2 = new User();
+//            user2.setUsername("user2");
+//
+//            em.persist(user);
+//            em.persist(user2);
 
             em.flush();
             em.clear();
 
-            User findUser = em.find(User.class, user.getId());
-            System.out.println("member: " + findUser.getClass());
-            Team team2 = findUser.getTeam();
-            System.out.println("team: " + team2.getClass());
+//            User findUser = em.find(User.class, user.getId());
+//            System.out.println("member: " + findUser.getClass());
+//            Team team2 = findUser.getTeam();
+//            System.out.println("team: " + team2.getClass());
 
-            team2.getTeamName();
-            System.out.println(team2.getClass());
+//            team2.getTeamName();
+//            System.out.println(team2.getClass());
 
-//            User findUser = em.getReference(User.class, user.getId()); // 가짜객체를 가져와서
-//            System.out.println("class = " + findUser.getClass());
-//            System.out.println("id = " + findUser.getId()); // 해당 데이터가 필요한 시점에 sql에서 내요응ㄹ 가져옴,.
-//            System.out.println("name = " + findUser.getUsername());
+            User findUser = em.getReference(User.class, user.getId()); // 가짜객체를 가져와서
+            SessionImplementor session1 = em.unwrap(SessionImplementor.class);
+            PersistenceContext persistenceContext1 = session1.getPersistenceContext();
+            System.out.println("findUser의 class = " + findUser.getClass());
+            persistenceContext1.getEntitiesByKey().forEach((key, value) -> {
+                System.out.println("Entity: " + key + " -> " + value);
+            });
+            System.out.println("userName = " + findUser.getUsername());
+            System.out.println("초기화 이후 finUser의 class = " + findUser.getClass());
+            SessionImplementor session2 = em.unwrap(SessionImplementor.class);
+            PersistenceContext persistenceContext2 = session2.getPersistenceContext();
+
+            persistenceContext2.getEntitiesByKey().forEach((key, value) -> {
+                System.out.println("Entity: " + key + " -> " + value);
+            });
+
 
 //            // 데이터타입 비교시 프록시 이므로 서로 안맞음.
 //            User u2 = em.find(User.class, user2.getId());
