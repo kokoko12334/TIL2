@@ -1,23 +1,17 @@
-package jpashop.jpabook.jpashop.domain2;
+package jpql;
 
 import javax.persistence.*;
 
 @Entity
-public class User {
-
+public class Member {
     @Id @GeneratedValue
-    @Column(name = "user_id")
     private Long id;
-
-    @Column(name = "user_name")
     private String username;
+    private int age;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "team_id")
     private Team team;
-
-    public User() {
-    }
 
     public Long getId() {
         return id;
@@ -33,6 +27,14 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public Team getTeam() {

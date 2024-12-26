@@ -1,12 +1,15 @@
 package jpashop.jpabook.jpashop;
 
-import jpashop.jpabook.jpashop.domain.Locker;
 import jpashop.jpabook.jpashop.domain.Member;
+import jpashop.jpabook.jpashop.domain.embedded.Address;
+import jpashop.jpabook.jpashop.domain.embedded.Period;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.time.LocalDateTime;
+import java.util.List;
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -17,17 +20,18 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Locker locker = new Locker();
-            locker.setName("locker1");
-            em.persist(locker);
 
             Member member = new Member();
-            member.setCity("seoul");
-            member.setName("ko");
-            member.setStreet("sinki");
-            member.setZipcode("dsdsd");
-            member.setLocker(locker);
+            member.setName("koko");
+            member.setAddress(new Address("city", "add", "zip132"));
+            member.setWorkPeriod(new Period(LocalDateTime.now(), LocalDateTime.now()));
             em.persist(member);
+
+            List<Member> members = em.createQuery("select m from Member m where m.name like '%k%'", Member.class).getResultList();
+
+            for (Member member1: members) {
+                System.out.println(member1);
+            }
 
             tx.commit();
         } catch (Exception e) {

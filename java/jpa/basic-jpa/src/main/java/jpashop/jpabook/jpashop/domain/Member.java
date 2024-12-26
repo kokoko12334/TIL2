@@ -1,8 +1,14 @@
 package jpashop.jpabook.jpashop.domain;
 
+import jpashop.jpabook.jpashop.domain.embedded.Address;
+import jpashop.jpabook.jpashop.domain.embedded.Period;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.locks.Lock;
 
 @Entity
@@ -12,17 +18,14 @@ public class Member {
     @GeneratedValue
     private Long id;
     private String name;
-    private String city;
-    private String street;
-    private String zipcode;
 
-    @OneToMany(mappedBy = "member")
-    private List<MemberProduct> memberProducts = new ArrayList<>();
+    @Embedded
+    private Period workPeriod;
 
-    @OneToOne
-    @JoinColumn(name = "LOCKER_ID")
-    private Locker locker;
+    @Embedded
+    private Address address;
 
+//
 //    @ManyToMany
 //    @JoinTable(name = "MEMBER_PRODUCT")
 //    private List<Product> products = new ArrayList<>();
@@ -43,35 +46,20 @@ public class Member {
         this.name = name;
     }
 
-    public String getCity() {
-        return city;
+    public Period getWorkPeriod() {
+        return workPeriod;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setWorkPeriod(Period workPeriod) {
+        this.workPeriod = workPeriod;
     }
 
-    public String getStreet() {
-        return street;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
-    public String getZipcode() {
-        return zipcode;
-    }
-
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
-    }
-
-    public Locker getLocker() {
-        return locker;
-    }
-
-    public void setLocker(Locker locker) {
-        this.locker = locker;
-    }
 }

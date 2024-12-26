@@ -1,5 +1,7 @@
 package jpashop.jpabook.jpashop.domain2;
 
+import org.hibernate.Hibernate;
+import org.hibernate.annotations.Proxy;
 import org.hibernate.engine.spi.PersistenceContext;
 import org.hibernate.engine.spi.SessionImplementor;
 
@@ -32,7 +34,12 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-//            User findUser = em.find(User.class, user.getId());
+            System.out.println("#####find user####");
+            User findUser = em.find(User.class, user.getId());
+
+            System.out.println("### team에 대한 정보를 불러올 때");
+            findUser.getTeam().getTeamName();
+
 //            System.out.println("member: " + findUser.getClass());
 //            Team team2 = findUser.getTeam();
 //            System.out.println("team: " + team2.getClass());
@@ -40,18 +47,15 @@ public class JpaMain {
 //            team2.getTeamName();
 //            System.out.println(team2.getClass());
 
-            User findUser = em.getReference(User.class, user.getId()); // 가짜객체를 가져와서
-            SessionImplementor session1 = em.unwrap(SessionImplementor.class);
-            PersistenceContext persistenceContext1 = session1.getPersistenceContext();
+//            User findUser = em.getReference(User.class, user.getId()); // 가짜객체를 가져와서
             System.out.println("findUser의 class = " + findUser.getClass());
-            persistenceContext1.getEntitiesByKey().forEach((key, value) -> {
-                System.out.println("Entity: " + key + " -> " + value);
-            });
-            System.out.println("userName = " + findUser.getUsername());
+
+//            Hibernate.initialize(findUser);
+//            findUser.getId();
             System.out.println("초기화 이후 finUser의 class = " + findUser.getClass());
             SessionImplementor session2 = em.unwrap(SessionImplementor.class);
             PersistenceContext persistenceContext2 = session2.getPersistenceContext();
-
+            System.out.println("###############");
             persistenceContext2.getEntitiesByKey().forEach((key, value) -> {
                 System.out.println("Entity: " + key + " -> " + value);
             });
