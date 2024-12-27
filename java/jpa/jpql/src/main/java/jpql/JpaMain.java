@@ -13,10 +13,13 @@ public class JpaMain {
 
         try {
 
-            Member member = new Member();
-            member.setUsername("member1");
-            member.setAge(20);
-            em.persist(member);
+            for (int i = 0; i < 100; i++) {
+                Member member = new Member();
+                member.setUsername("member1");
+                member.setAge(i);
+                em.persist(member);
+
+            }
 
             // 타입이 명확한 경우
             TypedQuery<Member> selectMFromMemberM = em.createQuery("select m from Member m", Member.class);
@@ -26,9 +29,9 @@ public class JpaMain {
             Query query = em.createQuery("select m.username, m.age from Member m");
             Query query1 = em.createQuery("select m from Member m");
 
-            // 하나 확실할떄 없으면 에러남
-            em.createQuery("select m from Member m", Member.class)
-                    .getSingleResult();
+//            // 하나 확실할떄 없으면 에러남
+//            em.createQuery("select m from Member m", Member.class)
+//                    .getSingleResult();
 
             // 여러개 없으면 빈칸
             em.createQuery("select m from Member m", Member.class)
@@ -53,14 +56,22 @@ public class JpaMain {
             }
 
             // new 명령어로 조회
-
-            // object로
             List<MemberDTO> resultList1 = em.createQuery("select new jpql.MemberDTO(m.username, m.age) from Member m", MemberDTO.class)
                     .getResultList();
 
             for (MemberDTO dto: resultList1) {
                 System.out.println(dto.getUsername());
                 System.out.println(dto.getAge());
+            }
+
+            List<Member> resultList2 = em.createQuery("select m from Member m order by m.age desc", Member.class)
+                    .setFirstResult(0)
+                    .setMaxResults(10)
+                    .getResultList();
+
+            System.out.println("size = " + resultList2.size());
+            for (Member m: resultList2) {
+                System.out.println(m);
             }
 
             tx.commit();
