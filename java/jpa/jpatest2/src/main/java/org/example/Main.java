@@ -3,6 +3,7 @@ package org.example;
 import jakarta.persistence.*;
 import org.example.domain.Course;
 import org.example.domain.Student;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.stat.Statistics;
 
@@ -19,20 +20,12 @@ public class Main {
 
         try {
             tx.begin();
-//
-//            Course course = em.find(Course.class, 1L);
-//            System.out.println(course.getTitle());
 
+            Course course  = em.createQuery("Select c from Course c where c.courseId = :id", Course.class)
+                    .setParameter("id", 1L)
+                    .getSingleResult();
 
-            Query query = em.createQuery("select c from Course c join fetch c.professor");
-            List<Course> courses = query.getResultList();
-
-            for (Course course: courses) {
-                course.getProfessor().getName();
-            }
-//
-
-
+            System.out.println(course.getProfessor().getClass());
 
             tx.commit();
         } catch (Exception e) {
