@@ -1,6 +1,7 @@
 package hello.core;
 
 import hello.core.discount.DiscountPolicy;
+import hello.core.discount.FixDiscountPolicy;
 import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.MemberService;
 import hello.core.member.MemberServiceImpl;
@@ -14,8 +15,13 @@ import org.springframework.context.annotation.Configuration;
 public class AppConfig {
 
     @Bean
-    public DiscountPolicy discountPolicy() {
+    public DiscountPolicy ratecountPolicy() {
         return new RateDiscountPolicy();
+    }
+
+    @Bean
+    public DiscountPolicy fixcountPolicy() {
+        return new FixDiscountPolicy();
     }
 
     @Bean
@@ -30,6 +36,6 @@ public class AppConfig {
 
     @Bean
     public OrderService orderService() {
-        return new OrderServiceImpl(MemberRepository(), discountPolicy());
+        return new OrderServiceImpl(MemberRepository(), ratecountPolicy());
     }
 }
