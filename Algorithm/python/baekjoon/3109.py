@@ -1,44 +1,28 @@
 import sys
+sys.setrecursionlimit(int(1e8))
 
 input = sys.stdin.readline
 
-r, c = [int(i) for i in input().split()]
+r, c = map(int, input().split())
+maps = [list(map(str, input().rstrip())) for _ in range(r)]
+count = 0
+direction = [(-1, -1), (-1, 0), (-1, 1)]
 
-grid = []
-for _ in range(r):
-    string = input().strip("\n")
-    grid.append(list(string))
+def dfs(x, y):
+    global count
+    if x == 0:
+        count += 1
+        return True
 
-for i in grid:
-    print(i)
+    for dx, dy in direction:
+        nx, ny = x + dx, y + dy
+        if 0 <= nx and 0 <= ny and ny < r and maps[ny][nx] == '.':
+            maps[ny][nx] = 'x'
+            if dfs(nx, ny):   
+                return True
+    return False
 
-seen = set()
+for y in range(r):
+    dfs(c - 1, y)
 
-stack = []
-for i in range(r - 1, -1, -1):
-    stack.append((i, 0))
-    seen.add((i, 0))
-dy = [0, -1, 1]
-dx = [1, 1, 1]
-answer = 0
-while stack:
-    y, x = stack.pop()
-    print(y, x)    
-    if x == c - 1:
-        answer += 1
-        continue
-
-    for i in range(3):
-        ny = dy[i] + y
-        nx = dx[i] + x
-        if nx < 0 or nx >= c or ny < 0 or ny >= r:
-            continue
-        print(ny, nx)
-        if (ny, nx) in seen or grid[ny][nx] == "x":
-            continue
-
-        
-        stack.append((ny, nx))
-        seen.add((ny, nx))
-        
-print(answer)
+print(count)
