@@ -1,7 +1,5 @@
 package org.basicsocket;
 
-import org.logger.MyLogger;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -9,11 +7,11 @@ import java.net.Socket;
 
 import static org.logger.MyLogger.*;
 
-public class SessionManager implements Runnable{
+public class SessionManager123 implements Runnable{
 
     private final Socket socket;
 
-    public SessionManager(Socket socket) {
+    public SessionManager123(Socket socket) {
         this.socket = socket;
     }
 

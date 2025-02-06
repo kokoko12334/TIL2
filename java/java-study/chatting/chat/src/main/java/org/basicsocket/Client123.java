@@ -1,7 +1,5 @@
 package org.basicsocket;
 
-import org.logger.MyLogger;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,7 +8,7 @@ import java.util.Scanner;
 
 import static org.logger.MyLogger.*;
 
-public class Client {
+public class Client123 {
 
     private static final int PORT = 12345;
 

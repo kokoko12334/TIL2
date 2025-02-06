@@ -1,16 +1,12 @@
 package org.basicsocket;
 
-import org.logger.MyLogger;
-
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 import static org.logger.MyLogger.*;
 
-public class Server {
+public class Server123 {
     private static final int PORT = 12345;
 
     public static void main(String[] args) throws IOException {
@@ -20,10 +16,10 @@ public class Server {
 
         while (true) {
             Socket socket = serverSocket.accept();
-            SessionManager sessionManager = new SessionManager(socket);
-            Thread thread = new Thread(sessionManager);
+            SessionManager123 sessionManager123 = new SessionManager123(socket);
+            Thread thread = new Thread(sessionManager123);
             thread.start();
         }
-        
+
     }
 }
