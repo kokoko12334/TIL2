@@ -1,0 +1,43 @@
+<!--<configuration>-->
+<!--    &lt;!&ndash; 비동기 로깅을 위한 AsyncAppender &ndash;&gt;-->
+<!--    <appender name="AsyncFileAppender" class="ch.qos.logback.classic.AsyncAppender">-->
+<!--        <appender-ref ref="FileAppender"/>-->
+<!--        <queueSize>1024</queueSize> &lt;!&ndash; 로그를 저장할 큐 크기 &ndash;&gt;-->
+<!--        <discardingThreshold>0</discardingThreshold> &lt;!&ndash; 0이면 큐가 가득 차도 처음부터 버리지 않음 &ndash;&gt;-->
+<!--        <neverBlock>true</neverBlock> &lt;!&ndash; 큐가 꽉 차면 로그 메시지를 버림 &ndash;&gt;-->
+<!--    </appender>-->
+
+<!--    &lt;!&ndash; 파일 로그 설정 &ndash;&gt;-->
+<!--    <appender name="FileAppender" class="ch.qos.logback.core.FileAppender">-->
+<!--        <file>logs/logback.log</file>-->
+<!--        <encoder>-->
+<!--            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>-->
+<!--        </encoder>-->
+<!--    </appender>-->
+
+<!--    &lt;!&ndash; 로그 레벨 설정 &ndash;&gt;-->
+<!--    <root level="info">-->
+<!--        <appender-ref ref="AsyncFileAppender"/>-->
+<!--    </root>-->
+<!--</configuration>-->
+
+<configuration>
+    <!-- 비동기 로깅을 위한 AsyncAppender -->
+    <appender name="AsyncFileAppender" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="FileAppender"/>
+        <queueSize>1024</queueSize> <!-- 로그를 저장할 큐 크기 -->
+        <discardingThreshold>0</discardingThreshold> <!-- 0이면 큐가 가득 차도 처음부터 버리지 않음 -->
+        <neverBlock>true</neverBlock> <!-- 큐가 꽉 차면 로그 메시지를 버림 -->
+    </appender>
+
+    <!-- 파일 로그 설정 (JSON 출력) -->
+    <appender name="FileAppender" class="ch.qos.logback.core.FileAppender">
+        <file>logs/logback.json</file> <!-- 로그 파일 이름을 .json으로 설정 -->
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/> <!-- JSON 인코더 사용 -->
+    </appender>
+
+    <!-- 로그 레벨 설정 -->
+    <root level="info">
+        <appender-ref ref="AsyncFileAppender"/>
+    </root>
+</configuration>

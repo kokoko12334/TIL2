@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<Configuration status="WARN">-->
+
+<!--    &lt;!&ndash; 로그 시스템을 비동기 모드로 설정 &ndash;&gt;-->
+<!--    <Properties>-->
+<!--        <Property name="log4j2.contextSelector">org.apache.logging.log4j.core.async.AsyncLoggerContextSelector</Property>-->
+<!--    </Properties>-->
+
+<!--    <Appenders>-->
+<!--        &lt;!&ndash; 파일 로그 설정 &ndash;&gt;-->
+<!--        <File name="FileAppender" fileName="logs/log4j2.log">-->
+<!--            <PatternLayout>-->
+<!--                <Pattern>%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %c{1} - %msg%n</Pattern>-->
+<!--            </PatternLayout>-->
+<!--        </File>-->
+<!--    </Appenders>-->
+
+<!--    <Loggers>-->
+<!--        &lt;!&ndash; Root Logger를 AsyncRoot로 설정 &ndash;&gt;-->
+<!--        <AsyncRoot level="info">-->
+<!--            <AppenderRef ref="FileAppender"/>-->
+<!--        </AsyncRoot>-->
+<!--    </Loggers>-->
+
+<!--</Configuration>-->
+
+<Configuration status="WARN">
+
+    <!-- 로그 시스템을 비동기 모드로 설정 -->
+    <Properties>
+        <Property name="log4j2.contextSelector">org.apache.logging.log4j.core.async.AsyncLoggerContextSelector</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- JSON 로그 파일 설정 -->
+        <File name="FileAppender" fileName="logs/log4j2.json">
+            <JsonLayout compact="true" eventEol="true"/>
+        </File>
+    </Appenders>
+
+    <Loggers>
+        <!-- Root Logger를 AsyncRoot로 설정 -->
+        <AsyncRoot level="info">
+            <AppenderRef ref="FileAppender"/>
+        </AsyncRoot>
+    </Loggers>
+
+</Configuration>
