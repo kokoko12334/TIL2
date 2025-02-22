@@ -1,89 +1,91 @@
 def solution(storage, requests):
     
-    n = len(storage)
-    m = len(storage[0])
-    answer = n * m
-    all_set = set()
-    for i in range(n):
-        for j in range(m):
-            all_set.add((i, j))
-            
-    outer = set()
-    
-    for i in range(n):
-        outer.add((i,0))
-        outer.add((i, m - 1))
-    
-    for i in range(m):
-        outer.add((0, i))
-        outer.add((n - 1, i))
-    
-    
-    # outer에서 추출
-    # outer 갱신 
-    # 전체에서 제거
-    
     dy = [0, 1, 0, -1]
     dx = [1, 0, -1, 0]
-    def cal1(alp):
-        nonlocal n, m, outer, all_set
-        remove_set = set()
-        add_set = set()
-        for cor in outer:
-            y, x = cor
-            if storage[y][x] != alp:
-                continue
-            
-            remove_set.add((y, x))
-            for i in range(4):
-                ny = y + dy[i]
-                nx = x + dx[i]
-                if nx < 0 or nx >= m or ny < 0 or ny >= n:
-                    continue
-                add_set.add((ny, nx))
-        print(alp)
-        all_set = all_set - remove_set
-        outer = (outer | add_set) - remove_set
-        print(all_set, len(all_set))
-        print(outer, len(outer))
     
-    def cal2(alp):
-        nonlocal n, m, outer, all_set
-        remove_set = set()
-        add_set = set()
-        
-        for cor in all_set:
-            y, x = cor
-            if storage[y][x] != alp:
-                continue
-            
-            remove_set.add((y, x))
-            
+    n = len(storage)
+    m = len(storage[0])
+    matrix = [[0] * m for _ in range(n)]
+    
+    for i in range(n):
+        matrix[i][0] = -1
+        matrix[i][m-1] = -1
+    
+    for i in range(m):
+        matrix[0][i] = -1
+        matrix[n-1][i] = -1
+    
+    def update_outside():
+        nonlocal n, m
+        stack = []
+        seen = [[0] * m for _ in range(n)]
+        for i in range(n):
+            for j in range(m):
+                if matrix[i][j] == -2:
+                    stack.append((i, j))
+                    seen[i][j] = 1
+        while stack:
+            y, x = stack.pop()
             
             for i in range(4):
-                ny = y + dy[i]
-                nx = x + dx[i]
+                ny = dy[i] + y
+                nx = dx[i] + x
                 if nx < 0 or nx >= m or ny < 0 or ny >= n:
                     continue
-                add_set.add((ny, nx))
-        print(alp)
-        all_set = all_set - remove_set
-        outer = (outer | add_set) - remove_set
-        print(all_set, len(all_set))
-        print(outer, len(outer))
-            
                 
-            
-            
+                if seen[ny][nx]:
+                    continue
+                
+                if matrix[ny][nx] == 0:
+                    matrix[ny][nx] = -1
+                    seen[ny][nx] = 1
+                
+                elif matrix[ny][nx] == -3:
+                    matrix[ny][nx] = -2
+                    seen[ny][nx] = 1
+                    stack.append((ny, nx))
+                
+                
+    def fork_lift(string):
         
+        for i in range(n):
+            for j in range(m):
+                if matrix[i][j] == -2 or matrix[i][j] == -3:
+                    continue
+                    
+                if matrix[i][j] == -1 and storage[i][j] == string:
+                    matrix[i][j] = -2
+        
+        update_outside()
+        
+    def crane(string):
+        
+        for i in range(n):
+            for j in range(m):
+                if matrix[i][j] == -2 or matrix[i][j] == -3:
+                    continue
+                
+                if matrix[i][j] == -1 and storage[i][j] == string:
+                    matrix[i][j] = -2
+                elif storage[i][j] == string:
+                    matrix[i][j] = -3        
+        update_outside()
         
     for i in range(len(requests)):
-        alp = requests[i]
+        string = requests[i]
         
-        if len(alp) == 1:
-            cal1(alp)
+        if len(string) == 1:
+            fork_lift(string)
         else:
-            cal2(alp[0])
+            crane(string[0])
         
-    
+        # print(f"#########{string}#####################")
+        # for i in matrix:
+        #     print(i)
+    answer = 0
+    for i in range(n):
+        for j in range(m):
+            if matrix[i][j] == -2 or matrix[i][j] == -3:
+                continue
+            answer += 1
     return answer
