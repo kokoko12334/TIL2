@@ -1,0 +1,21 @@
+<idea-plugin>
+    <id>org.example.demo</id>
+    <name>Demo</name>
+    <vendor>YourCompanydd</vendor>
+
+    <description>dddddddddddddddddddddddddddddddddddddddddddddddd</description>
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationConfigurable
+                instance="org.example.ui.MyConfigurable"
+                displayName="My Plugin Settings"/>
+
+    </extensions>
+    <actions>
+        <action id="actions.MyAction" class="org.example.demo.MyAction" text="myaction">
+            <add-to-group group-id="GenerateGroup" anchor="first"/>
+            <add-to-group group-id="ToolsMenu" anchor="first"/>
+        </action>
+    </actions>
+</idea-plugin>
