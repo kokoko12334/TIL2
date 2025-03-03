@@ -5,6 +5,7 @@ import com.intellij.ui.components.JBList;
 import com.intellij.ui.components.JBPanel;
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.ui.treeStructure.Tree;
+import com.intellij.util.ui.components.JBComponent;
 import org.example.config.MySettings;
 
 import javax.swing.*;
@@ -16,59 +17,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MySettingsComponent {
-    private final JBPanel panel;
-    private final ComboBox<String> comboBox;
+    private final JPanel panel;
     private final CardLayout cardLayout;
-    private final JBPanel contentPanel;
-    private final JBPanel modelselectionPanel = new ModelSelectionPanel();
-//    private final JTextArea textArea;
+    private final JPanel contentPanel;
+    //    private final JTextArea textArea;
 //    private final JCheckBox checkBox;
 
     public MySettingsComponent() {
-        panel = new JBPanel<>();
-        String[] options = {"Option 1", "Option 2", "Option 3"};
-        comboBox = new ComboBox<>(options);
-//        panel.add(new JLabel("Select an option:"), BorderLayout.CENTER);
-//        panel.add(comboBox, BorderLayout.CENTER);
-//        panel.add(new JLabel("상단 패널"), BorderLayout.NORTH);
-//        panel.add(new JButton("왼쪽 버튼"), BorderLayout.WEST);
-//        panel.add(new JButton("오른쪽 버튼"), BorderLayout.EAST);
-//        panel.add(new JTextArea(5, 20), BorderLayout.CENTER);
-//        panel.add(new JButton("하단 버튼"), BorderLayout.SOUTH);
-//
-//        // 좌측 메뉴처럼 패널 추가 (예시)
-//        JPanel leftPanel = new JPanel();
-//        leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
-//        leftPanel.add(new JButton("커밋 메시지 생성"));
-//        leftPanel.add(new JButton("문서 작성"));
-//        leftPanel.add(new JButton("유닛 테스트 생성"));
-//
-//        // 우측 패널: 설명 텍스트 영역
-//        JPanel rightPanel = new JPanel(new BorderLayout());
-//        textArea = new JTextArea(10, 40);
-//        checkBox = new JCheckBox("옵션 활성화");
-//
-//        rightPanel.add(new JLabel("설정 설명"), BorderLayout.NORTH);
-//        rightPanel.add(new JScrollPane(textArea), BorderLayout.CENTER);
-//        rightPanel.add(checkBox, BorderLayout.SOUTH);
-//        String[] items = {"Item 1", "Item 2", "Item 3"};
-//        JList<String> list = new JBList<>(items);
-//        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//        // 전체 레이아웃
-//        panel.add(leftPanel, BorderLayout.WEST);
-//        panel.add(rightPanel, BorderLayout.CENTER);
-//        panel.add(list, BorderLayout.EAST);
-
-
-        // 패널 생성 및 GridLayout 설정 (2행 2열)
-//        panel = new JPanel(new GridLayout(2, 2, 10, 10)); // 행, 열, 수평 간격, 수직 간격
-//        // 버튼 추가
-//        panel.add(new JButton("Button 1"));
-//        panel.add(new JButton("Button 2"));
-//        panel.add(new JButton("Button 3"));
-//        panel.add(new JButton("Button 4"));
-
-
+        panel = new JPanel();
         panel.setLayout(new BorderLayout());
 
         // 좌측 네비게이션 패널 (JTree)
@@ -93,6 +49,7 @@ public class MySettingsComponent {
         contentPanel = new JBPanel<>(cardLayout);
 
         // 각 패널 추가
+        JPanel modelselectionPanel = new ModelSelectionPanel();
         contentPanel.add(modelselectionPanel, "Model Selection");
         contentPanel.add(new JLabel("Python 문서 작성 설정 화면"), "Python");
         contentPanel.add(new JLabel("Java 문서 작성 설정 화면"), "Java");
@@ -120,11 +77,4 @@ public class MySettingsComponent {
         return panel;
     }
 
-    public String getSelectedOption() {
-        return (String) comboBox.getSelectedItem();
-    }
-
-    public void setSelectedOption(String option) {
-        comboBox.setSelectedItem(option);
-    }
 }

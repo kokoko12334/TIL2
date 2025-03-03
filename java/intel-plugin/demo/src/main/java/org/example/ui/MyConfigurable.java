@@ -24,24 +24,22 @@ public class MyConfigurable implements Configurable {
 
     @Override
     public boolean isModified() {
-        MySettings settings = MySettings.getInstance();
-        String selectedOption = mySettingsComponent.getSelectedOption();
+//        MySettings settings = MySettings.getInstance();
+//        String selectedOption = mySettingsComponent.getSelectedOption();
         System.out.println("isModified");
-        return !selectedOption.equals(settings.getState().theme);
+        return false;
     }
 
 
     @Override
     public void apply() {
-        MySettings settings = MySettings.getInstance();
-        settings.setTheme(mySettingsComponent.getSelectedOption());
         System.out.println("apply");
     }
 
     @Override
     public void reset() {
-        MySettings settings = MySettings.getInstance();
-        mySettingsComponent.setSelectedOption(settings.getTheme());
+//        MySettings settings = MySettings.getInstance();
+//        mySettingsComponent.setSelectedOption(settings.getTheme());
         System.out.println("reset");
     }
 }
