@@ -1,15 +1,15 @@
 package org.reflection.data;
 
-public class BasicData {
+public class ExampleData {
 
     public String publicFiled;
     private int privateFiled;
 
-    public BasicData() {
+    public ExampleData() {
         System.out.println("BasicData.BasicData");
     }
 
-    private BasicData(String data) {
+    private ExampleData(String data) {
         System.out.println("BasicData.BasicData: " + data);
     }
 

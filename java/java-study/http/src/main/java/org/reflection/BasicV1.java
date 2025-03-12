@@ -1,6 +1,6 @@
 package org.reflection;
 
-import org.reflection.data.BasicData;
+import org.reflection.data.ExampleData;
 
 public class BasicV1 {
     public static void main(String[] args) throws ClassNotFoundException {
@@ -8,14 +8,15 @@ public class BasicV1 {
         //클래스 메타데이터 조회 방법 3가지
 
         // 1. 클래스에서 찾기
-        Class<BasicData> basicData = BasicData.class;
+        Class<ExampleData> basicData = ExampleData.class;
 
         System.out.println(basicData);
 
 
         // 2. 인스턴스에서 찾기
-        BasicData basicData1 = new BasicData();
-        System.out.println(basicData1.getClass());
+        ExampleData exampleData1 = new ExampleData();
+        Class<? extends ExampleData> aClass = exampleData1.getClass();
+        System.out.println(exampleData1.getClass());
 
         // 3.글자로 찾기
         String className = "org.reflection.data.BasicData";

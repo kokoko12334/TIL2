@@ -1,7 +1,5 @@
 package org.reflection;
 
-import org.reflection.data.BasicData;
-
 import java.lang.reflect.Method;
 
 public class Methodv1 {

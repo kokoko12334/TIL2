@@ -1,13 +1,13 @@
 package org.reflection;
 
-import org.reflection.data.BasicData;
+import org.reflection.data.ExampleData;
 
 import java.lang.reflect.Modifier;
 
 public class BasicV2 {
 
     public static void main(String[] args) {
-        Class<BasicData> basicDataClass = BasicData.class;
+        Class<ExampleData> basicDataClass = ExampleData.class;
 
         System.out.println(basicDataClass.getName());
         System.out.println(basicDataClass.getSimpleName());
