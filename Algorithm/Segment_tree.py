@@ -8,6 +8,7 @@ class SegmentTree:
         self.n = len(data)
         self.func = func
         self.default = default
+
         # 세그먼트 트리의 배열은 2*n 크기로 구성 (리프는 인덱스 n부터 시작)
         self.tree = [default] * (2 * self.n)
         
@@ -61,9 +62,8 @@ class SegmentTree:
 
 # 사용 예제
 if __name__ == '__main__':
-    # 원본 배열
+    
     data = [1, 3, 5, 7, 9, 11]
-    # 구간 합을 위한 세그먼트 트리 생성 (합의 항등원은 0)
     seg_tree = SegmentTree(data, lambda a, b: a + b, 0)
     
     # 구간 [1, 5) (즉, 인덱스 1~4)의 합을 구함
