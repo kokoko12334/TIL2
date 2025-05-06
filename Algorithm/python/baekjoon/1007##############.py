@@ -1,30 +1,5 @@
-from itertools import permutations
+from itertools import combinations
 from math import sqrt
-
-def dfs(i):
-    global n
-
-    if len(case) == (n // 2):
-        all_cases.append(case[:])
-        return
-
-    for j in range(i + 1):
-        next_ = idxes[j]
-        flag = True
-        for num in next_:
-            if seen[num]:
-                flag = False
-                break
-
-        if flag:
-            for idx in next_:
-                seen[idx] = 1
-            case.append(next_)
-            dfs(j)
-            case.pop()
-            for idx in next_:
-                seen[idx] = 0
-
 
 def caculate(case):
     v = [0, 0]
@@ -42,21 +17,33 @@ for _ in range(T):
     n = int(input())
 
     vectors = []
+    x_total = 0
+    y_total = 0
     for _ in range(n):
-        vectors.append([int(i) for i in input().split()])
-
-    idxes = list(permutations([int(i) for i in range(n)], 2))
-    nn = len(idxes)
-    all_cases = []
-    for i in range(nn):
-        seen = [0] * n
-        stack = [idxes[i]]
-        for idx in idxes[i]:
-            seen[idx] = 1
-        case = [idxes[i]]
-        dfs(i)
-
-    answer = float("inf")
-    for case in all_cases:
-        answer = min(answer, caculate(case))
-    print(f"{answer:.15f}")
+        x, y = [int(i) for i in input().split()]
+        vectors.append([x, y])
+        x_total += x
+        y_total += y
+        
+    end_dots = list(combinations([int(i) for i in range(n)], n//2))
+    result = float("inf")
+    # print(end_dots)
+    nn = len(end_dots)//2
+    for idx_list in end_dots[:nn]:
+        x_tmp = 0
+        y_tmp = 0
+        for idx in idx_list:
+            x, y = vectors[idx]
+            x_tmp += x
+            y_tmp += y
+        
+        start_x_sum = x_total - x_tmp
+        start_y_sum = y_total - y_tmp
+        
+        x_tmp -= start_x_sum
+        y_tmp -= start_y_sum
+        
+        result = min(result, sqrt(x_tmp**2 + y_tmp**2))
+        # print(result)
+        
+    print(f"{result:.15f}")
