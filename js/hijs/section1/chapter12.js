@@ -25,3 +25,20 @@ let varD = (a, b) => {
 }
 
 console.log(varD(1, 2));
+
+
+// 함수선언식 -> 호이스팅 되서 사용가능
+
+sayHello();
+
+function sayHello() {
+    console.log("hello");
+}
+
+// 함수 표현식 -> 호이스팅 안되서 불가능
+
+sayHello2();
+
+const sayhello2 = function() {
+    console.log("hello2");
+};

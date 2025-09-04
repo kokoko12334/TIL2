@@ -13,7 +13,7 @@ console.log(num1 / num2);
 console.log(num1 - num2);
 
 let inf = Infinity;
-let mInf = Infinity;
+let mInf = -Infinity;
 let nan = NaN; // 연산에 실패함
 
 console.log(1 *"hhh"); // Not a Number
