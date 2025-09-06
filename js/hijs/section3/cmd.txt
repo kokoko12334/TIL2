@@ -1,0 +1,17 @@
+프로젝트생성(패키지): npm init
+
+파일실행: node [파일이름.js]
+
+혹은 package.json의 scripts에서 명령어 설정가능 이때는 npm run [스크립트 명령어]로 함.
+
+- 모듈 개념
+Common js
+ES 모듈시스템 -> package.json에서 "type": "module"를 추가해야 함
+
+- npm
+npm i [패키지이름]으로 설치하면 
+1. node_modules에 라이브러리에 저장됨.
+2. package.json에 dependencies가 추가됨.
+3. package-lock.json이 추가됨 -> 더 엄격한 버전관리 인듯
+
+그리고 package.json에 dependencies가 살아 있다면 모듈이 삭제되어도 그냥 npm -i 하면 다시 설치됨.
