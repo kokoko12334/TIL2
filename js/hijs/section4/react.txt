@@ -1,0 +1,20 @@
+리액트 특징
+1. 리액트는 Component(Header.js, Main.js, Footer.js)를 기반으로 UI를 표현함.
+
+2. 화면 업데이트(선언형으로 인한 간편함?)
+
+3. 화면 업데이트가 빠르게 동작함.(렌더링 과정 이해) Critical Rendering Path
+
+    js에서는 DOM생성 -> Render Tree -> Layout(Reflow) -> Painting(Repaint)을 함.
+    이때 innerHtml처럼 매번 수정하는게 아니라 동시에 발생한 업데이트를 모아서 다 모이면 그때 딱 한번만 함.
+    이때 Virtual DOM을 생성하고 여기서 일단 업데이트를 하고 여기서 최종 된것을 실제 돔에 반영 즉, Virtual DOM이 buffer역할을 함.
+
+
+
+리액트 프로젝트 생성
+1. npm create vite@latest -> react, js 선택 후 쭈욱 진행
+
+2. npm run dev -> react내부에 내장 웹서버가 있음.
+
+3. 렌더링 과정
+- index.html이 진입점임. -> /src/main.jsx를 불러옴 -> 해당파일에는 div id="root"라는 곳에 렌더링을 하는데 <App/>(렌더링 하는 문법)을 실행함.
