@@ -2,7 +2,10 @@
 const Button = (props) => {
     console.log(props);
     return (
-        <button style={{color: props.color}}>
+        <button onClick = {(e) => {
+            //e는 합성 이벤트객체로 서로 다른 브라우저에서 통합된 핸들링 가능
+            console.log("클릭");
+        }}style={{color: props.color}}>
             {props.text} 버튼 클릭 {props.color}
             {props.children} 
         </button>
